@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="216.0" prefWidth="742.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="windows.SettingsWindow.SettingsWindow">
+   <children>
+      <VBox alignment="CENTER" layoutX="265.0" layoutY="43.0" prefHeight="200.0" prefWidth="742.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="36.0" prefWidth="600.0">
+               <children>
+                  <TextField fx:id="addresDB" prefHeight="25.0" prefWidth="326.0" promptText="Путь к Базе Данных" HBox.hgrow="ALWAYS" />
+                  <Separator orientation="VERTICAL" prefHeight="36.0" prefWidth="13.0" />
+                  <CheckBox fx:id="isLocalDB" mnemonicParsing="false" text="Локальная БД">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </CheckBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="41.0" prefWidth="600.0">
+               <children>
+                  <TextField fx:id="nameDB" prefHeight="25.0" prefWidth="335.0" promptText="Имя Базы Данных" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="30.0" prefWidth="600.0">
+               <children>
+                  <TextField fx:id="loginDB" promptText="Логин" HBox.hgrow="ALWAYS" />
+                  <Separator orientation="VERTICAL" prefHeight="59.0" prefWidth="35.0" />
+                  <PasswordField fx:id="passwordDB" promptText="Пароль" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TextField fx:id="mysqldumpTxt" editable="false" prefHeight="31.0" prefWidth="550.0" />
+                  <Button fx:id="selDumpExeBt" mnemonicParsing="false" text="Обзор" GridPane.columnIndex="1" />
+               </children>
+            </GridPane>
+            <Button fx:id="saveSettings" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="38.0" prefWidth="742.0" text="Сохранить" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

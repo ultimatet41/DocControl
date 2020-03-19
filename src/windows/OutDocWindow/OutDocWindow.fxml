@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="853.0" prefWidth="938.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="windows.OutDocWindow.OutDocWindow">
+   <children>
+      <VBox layoutX="291.0" layoutY="118.0" prefHeight="739.0" prefWidth="783.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER">
+               <children>
+                  <Label text="Дата регистрации:          " />
+                  <DatePicker fx:id="dateRegTxt" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </DatePicker>
+                  <Separator orientation="VERTICAL" prefHeight="20.0" prefWidth="11.0" />
+                  <TextField fx:id="numDocTxt" promptText="Номер регистрации" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" minHeight="120.0" prefHeight="83.0" prefWidth="938.0">
+               <children>
+                  <TextArea fx:id="descTxt" prefHeight="150.0" promptText="Описание" HBox.hgrow="ALWAYS" />
+                  <TextArea fx:id="otherDataTxt" prefHeight="48.0" prefWidth="618.0" promptText="Примечание" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <Label text="Как отправлен:">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <TableView fx:id="sysTrfTable" prefHeight="200.0" prefWidth="938.0" VBox.vgrow="ALWAYS">
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="addSysTrfBt" mnemonicParsing="false" text="Выбрать" />
+                  <Button fx:id="delSysTrfBt" mnemonicParsing="false" text="Удалить" />
+               </children>
+            </HBox>
+            <Label text="Куда был отправлен:">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <TableView fx:id="abonentTable" prefHeight="200.0" prefWidth="200.0">
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="addAbonentBt" mnemonicParsing="false" text="Выбрать" />
+                  <Button fx:id="delAbonentBt" mnemonicParsing="false" text="Удалить" />
+               </children>
+            </HBox>
+            <Label text="Исполнитель(и):">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <TableView fx:id="personTable" prefHeight="200.0" prefWidth="783.0" VBox.vgrow="ALWAYS">
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="addPersonBt" mnemonicParsing="false" text="Выбрать" />
+                  <Button fx:id="delPersonBt" mnemonicParsing="false" text="Удалить" />
+               </children>
+            </HBox>
+            <Label text="Входящий документ:   ">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <TableView fx:id="inDocTable" prefHeight="200.0" prefWidth="938.0" VBox.vgrow="ALWAYS">
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="addInDocBt" mnemonicParsing="false" text="Выбрать" />
+                  <Button fx:id="delInDocBt" mnemonicParsing="false" text="Удалить" />
+               </children>
+            </HBox>
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                <RowConstraints />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button fx:id="deleteDocBt" disable="true" mnemonicParsing="false" text="Удалить этот документ" GridPane.rowIndex="1" />
+                <Button fx:id="closeBt" mnemonicParsing="false" text="Закрыть" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Button fx:id="saveBt" mnemonicParsing="false" text="Сохранить" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

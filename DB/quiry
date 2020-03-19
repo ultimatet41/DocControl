@@ -1,0 +1,69 @@
+#abonent
+INSERT INTO abonent (name, descAbonent) VALUES (?, ?);
+//правка 
+UPDATE abonent SET name = ?, descAbonent = ? WHERE = ?;
+//запрос по id
+SELECT * FROM abonent WHERE idAbonent = ?;
+//запрос всего
+SELECT * FROM abonent;
+
+
+#inDoc
+//добавление нового документа
+INSERT INTO inDoc (inNum, currNum, dateDc, descInDoc) VALUES (?, ?, ?, ?);
+//правка документа
+UPDATE inDoc SET inNum = ?, currNum = ?, dateDc = ?, descInDoc = ? WHERE idInDoc = ?;
+//запрос за период
+SELECT * FROM inDoc WHERE dateDc >= '?' AND dateDc <= '?';
+//запрос проверки существования
+SELECT * FROM inDoc WHERE inNum = '?' AND currNum = '?' AND dateDc = '?';
+//запрос документа по id
+SELECT * FROM inDoc WHERE idInDoc = ?;
+
+
+#outDoc
+//добавление нового документа
+INSERT INTO outDoc (numDoc, dateDc, descOutDoc) VALUES (?, ?, ?);
+//правка документа
+UPDATE outDoc SET numDoc = ?, dateDc = ?, descOutDoc = ? WHERE idOutDoc = ?;
+//запрос за период
+SELECT * FROM outDoc WHERE dateDc >= '?' AND dateDc <= '?';
+//запрос проверки существования
+SELECT * FROM outDoc WHERE numDoc = '?' AND dateDc = '?';
+//запрос документа по id
+SELECT * FROM outDoc WHERE idOutDoc = ?;
+
+#person
+INSERT INTO person (fname, lname, patron, descPerson) VALUES (?, ?, ?, ?);
+//правка
+UPDATE person SET fname = ?, lname = ?, patron = ?, descPerson = ? WHERE idPerson = ?;
+//запрос по id
+SELECT * FROM person WHERE idPerson = ?;
+//запрос всего
+SELECT * FROM person;
+
+
+#systemTransfer
+INSERT INTO systemTransfer (name, descSysTrf) VALUES (?, ?);
+//правка
+UPDATE systemTransfer SET name = ?, descSysTrf = ? WHERE idSystemTransfer = ?;
+//запрос по id
+SELECT * FROM systemTransfer WHERE idSystemTransfer = ?;
+//запрос всего
+SELECT * FROM systemTransfer;
+
+#abonentLink
+INSERT INTO abonentLink (idDoc, typeDoc, dateDc, idAbonent) VALUES (?, ?, ?, ?);
+SELECT * FROM abonentLink WHERE idDoc = ? AND typeDoc = ?;
+
+#docLink
+INSERT INTO docLink (idDocOf, idDocIn, typeDoc, dateDc) VALUES (?, ?, ?, ?);
+SELECT * FROM docLink WHERE idDocOf = ? AND typeDoc = ? AND dateDc = ?;
+
+#personLink
+INSERT INTO personLink (idDoc, typeDoc, dateDc, idPerson) VALUES (?, ?, ?, ?);
+SELECT * FROM personLink WHERE idDoc = ? AND  typeDoc = ? AND dateDc = ?;
+
+#sysTrfLink
+INSERT INTO sysTrfLink (idDoc, typeDoc, dateDc, idSysTrf) VALUES (?, ?, ?, ?);
+SELECT * FROM sysTrfLink WHERE idDoc = ? AND typeDoc = ? AND dateDc = ?;

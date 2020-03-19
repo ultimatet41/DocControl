@@ -1,0 +1,2 @@
+ ALTER TABLE indoc ADD otherdata TEXT AFTER descInDoc;
+ ALTER TABLE outdoc ADD otherdata TEXT AFTER descOutDoc;

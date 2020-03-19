@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="772.0" prefWidth="1042.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="windows.InDocWindow.InDocWindow">
+   <children>
+      <VBox layoutX="291.0" layoutY="118.0" prefHeight="739.0" prefWidth="783.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox minWidth="500.0" prefHeight="200.0" prefWidth="800.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="83.0" prefWidth="938.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label text="Дата регистрации:          ">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <DatePicker fx:id="dateRegTxt" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </DatePicker>
+                              <Separator orientation="VERTICAL" prefHeight="200.0" />
+                              <TextField fx:id="currNumTxt" maxWidth="1.7976931348623157E308" prefHeight="31.0" prefWidth="213.0" promptText="Номер регистрации" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" minWidth="500.0" prefHeight="33.0" prefWidth="500.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label text="Дата вх. документа:       ">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <DatePicker fx:id="dateInPk" HBox.hgrow="ALWAYS" />
+                              <Separator orientation="VERTICAL" prefHeight="200.0" />
+                              <TextField fx:id="inNumTxt" maxWidth="1.7976931348623157E308" prefHeight="31.0" prefWidth="217.0" promptText="Номер входящего документа" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="69.0" prefWidth="290.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <TextArea fx:id="otherDataTxt" prefHeight="200.0" prefWidth="200.0" promptText="Примечание" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Separator blendMode="MULTIPLY" prefHeight="100.0" prefWidth="938.0" />
+            <TextArea fx:id="descTxt" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="938.0" promptText="Описание" VBox.vgrow="ALWAYS" />
+            <Label text="От кого пришло:">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <TableView fx:id="abonentTable" prefHeight="200.0" prefWidth="200.0">
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="addAbonentBt" mnemonicParsing="false" text="Выбрать" />
+                  <Separator prefHeight="0.0" prefWidth="2.0" />
+                  <Button fx:id="delAbonentBt" mnemonicParsing="false" text="Удалить" />
+               </children>
+            </HBox>
+            <Label text="Как было получено:">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <TableView fx:id="sysTrfTable" prefHeight="200.0" prefWidth="938.0" VBox.vgrow="ALWAYS">
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <HBox prefHeight="39.0" prefWidth="938.0">
+               <children>
+                  <Button fx:id="addSysTrfBt" mnemonicParsing="false" text="Выбрать" />
+                  <Button fx:id="delSysTrfBt" mnemonicParsing="false" text="Удалить" />
+               </children>
+            </HBox>
+            <Label text="Исполнитель(и):">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <TableView fx:id="personTable" prefHeight="200.0" prefWidth="938.0" VBox.vgrow="ALWAYS">
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <HBox prefHeight="49.0" prefWidth="938.0">
+               <children>
+                  <Button fx:id="addPersonBt" mnemonicParsing="false" text="Выбрать" />
+                  <Separator prefHeight="0.0" prefWidth="8.0" />
+                  <Button fx:id="delPersonBt" mnemonicParsing="false" text="Удалить" />
+               </children>
+            </HBox>
+            <Label text="Исходящий документ:   ">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <TableView fx:id="outDocTable" prefHeight="200.0" prefWidth="938.0" VBox.vgrow="ALWAYS">
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="addOutDocBt" mnemonicParsing="false" text="Выбрать" />
+                  <Button fx:id="delOutDocBt" mnemonicParsing="false" text="Удалить" />
+               </children>
+            </HBox>
+            <GridPane alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints maxHeight="104.0" minHeight="4.0" prefHeight="5.0" />
+                <RowConstraints maxHeight="104.0" minHeight="38.0" prefHeight="83.0" />
+                  <RowConstraints maxHeight="69.0" minHeight="3.0" prefHeight="3.0" />
+              </rowConstraints>
+               <children>
+                  <Button fx:id="deleteDocBt" disable="true" mnemonicParsing="false" text="Удалить этот документ" GridPane.rowIndex="1" />
+                <Button fx:id="closeBt" mnemonicParsing="false" text="Закрыть" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Button fx:id="saveBt" mnemonicParsing="false" text="Сохранить" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.rowIndex="2" />
+               </children>
+            </GridPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

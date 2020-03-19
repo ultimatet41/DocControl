@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="527.0" prefWidth="923.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="windows.PersonWindow.PersonWindow">
+   <children>
+      <VBox layoutX="137.0" layoutY="180.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="33.0" prefWidth="923.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <TextField fx:id="fLNameTxt" prefHeight="31.0" prefWidth="769.0" promptText="Поиск по фамилии:" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="findBt" mnemonicParsing="false" text="Найти" />
+                  <Button fx:id="abortBt" mnemonicParsing="false" text="Сброс" />
+               </children>
+            </HBox>
+            <TableView fx:id="personTable" prefHeight="297.0" prefWidth="923.0" VBox.vgrow="ALWAYS">
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <Label text="Добавить нового сотрудника:">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></Label>
+            <SplitPane dividerPositions="0.29797979797979796" prefHeight="135.0" prefWidth="923.0" VBox.vgrow="ALWAYS">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <VBox layoutX="22.0" layoutY="-42.0" prefHeight="15.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Separator orientation="VERTICAL" prefHeight="15.0" />
+                              <HBox alignment="CENTER" prefHeight="35.0" prefWidth="271.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <TextField fx:id="lNameTxt" promptText="Фамилия" HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="27.0" prefWidth="271.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <TextField fx:id="fNameTxt" promptText="Имя" HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="37.0" prefWidth="271.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <TextField fx:id="patronTxt" promptText="Отчество" HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="158.0" prefWidth="595.0">
+                     <children>
+                        <VBox layoutX="99.0" layoutY="-42.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <TextArea id="inDesc" fx:id="descTxt" prefHeight="300.0" prefWidth="200.0" promptText="Описание" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+            <GridPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="43.0" prefWidth="505.0" VBox.vgrow="ALWAYS">
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints maxHeight="30.0" minHeight="4.0" prefHeight="4.0" valignment="CENTER" vgrow="ALWAYS" />
+                <RowConstraints maxHeight="39.0" minHeight="10.0" prefHeight="39.0" valignment="CENTER" vgrow="ALWAYS" />
+              </rowConstraints>
+               <children>
+                  <Button fx:id="selBt" mnemonicParsing="false" text="Выбрать" GridPane.rowIndex="1" />
+                <Button id="addBt" fx:id="addBt" mnemonicParsing="false" text="Добавить" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Button id="editBt" fx:id="editBt" disable="true" mnemonicParsing="false" text="Изменить" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <CheckBox fx:id="editModeCh" mnemonicParsing="false" text="Режим редактирования" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
