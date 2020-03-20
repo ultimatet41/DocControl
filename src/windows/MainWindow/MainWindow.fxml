@@ -17,7 +17,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Настройки">
                   <items>
-                    <MenuItem fx:id="settingsBDItemMenu" mnemonicParsing="false" text="Подключени к БД" />
+                    <MenuItem fx:id="settingsBDItemMenu" mnemonicParsing="false" text="Параметры БД" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Помощь">

@@ -265,7 +265,7 @@ public class MainWindow extends AbstrWindow {
             Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
             stage.getIcons().add(thisStage.getIcons().get(0));
             alert.setHeaderText("ИНФОРМАЦИЯ");
-            alert.setTitle("О ПРОГРАММЕ");
+            alert.setTitle("О ПРОГРАММЕ. ВЕРСИЯ 1.5а");
             alert.setContentText("РАЗРАБОТАНО СПЕЦИАЛЬНО ДЛЯ АДМИНИСТРАЦИИ МР \"СПАС-ДЕМЕНСКИЙ РАЙОН\". КОНОВАЛОВ К.В.");
             alert.showAndWait();
         });
@@ -304,18 +304,40 @@ public class MainWindow extends AbstrWindow {
                 File dir = chooser.showDialog(thisStage);
                 if (dir != null) {
                     if (settingsWindow.getDumpexe() != null && !settingsWindow.getDumpexe().isEmpty()) {
-                        try {
                             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm");
                             String dateTime = LocalDateTime.now().format(formatter);
 
                             String prog = "cmd.exe /c \"" + settingsWindow.getDumpexe() +"\"" + " -u " + settingsWindow.getLoginDB() +
                                     " -p" + settingsWindow.getPasswordDB() + " " + settingsWindow.getNameDB() +
-                                    " > " + dir.getAbsolutePath() + dateTime + ".sql";
-                            System.out.println(prog);
-                            Runtime.getRuntime().exec(prog);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                                    " > ";
+                            String fullFileName = dir.getAbsolutePath() + dateTime + ".sql";
+                            System.out.println(prog + fullFileName);
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        Runtime.getRuntime().exec(prog + fullFileName).waitFor();
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                    if (new File(fullFileName).exists()) {
+                                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                        alert.setTitle("ОТЧЕТ");
+                                        alert.setHeaderText("ИНФОРМАЦИЯ");
+                                        alert.setContentText("РЕЗЕРВНАЯ КОПИЯ СОЗДАНА: (" + fullFileName + ")");
+                                        alert.showAndWait();
+                                    }
+                                    else {
+                                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                                        alert.setTitle("ОТЧЕТ");
+                                        alert.setHeaderText("ПРЕДУПРЕЖДЕНИЕ");
+                                        alert.setContentText("РЕЗЕРВНАЯ КОПИЯ НЕ СОЗДАНА!");
+                                        alert.showAndWait();
+                                    }
+                                }
+                            });
                     }
                     else {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -337,12 +359,10 @@ public class MainWindow extends AbstrWindow {
             InDocWindow inDocWindow = loader.getController();
             inDocWindow.setData(null);
             inDocWindow.setAbstrWindow(MainWindow.this);
-            // Image image = new Image(getClass().getResourceAsStream("windows/InputWindow/doc.png"));
             Stage stage = new Stage();
             stage.setTitle("НОВЫЙ ВХОДЯЩИЙ ДОКУМЕНТ");
             stage.setScene(new Scene(root, 800, 700));
             stage.getIcons().add(thisStage.getIcons().get(0));
-            //stage.getScene().getStylesheets().add(thisStage.getScene().getStylesheets().get(0));
             inDocWindow.setStage(stage);
             stage.show();
         } catch (IOException e) {
@@ -385,7 +405,14 @@ public class MainWindow extends AbstrWindow {
                 param.put(DBControl.ID_ABONENT, String.valueOf(abonent.getIdAbonent()));
             }
             try {
-                if (param.size() == 0) return;
+                if (param.size() == 0) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("ПОИСК");
+                    alert.setHeaderText("ИНФОРМАЦИЯ");
+                    alert.setContentText("НЕ ВЫБРАН ПАРАМЕТР ПОИСКА");
+                    alert.showAndWait();
+                    return;
+                }
                 dataInDoc.clear();
                 dataInDoc.addAll(convertToInDocMW(DBControl.InDoc.findDocs(param)));
                 inDocTable.setItems(dataInDoc);
@@ -423,7 +450,14 @@ public class MainWindow extends AbstrWindow {
                 param.put(DBControl.ID_ABONENT, String.valueOf(abonent.getIdAbonent()));
             }
             try {
-                if (param.size() == 0) return;
+                if (param.size() == 0) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("ПОИСК");
+                    alert.setHeaderText("ИНФОРМАЦИЯ");
+                    alert.setContentText("НЕ ВЫБРАН ПАРАМЕТР ПОИСКА");
+                    alert.showAndWait();
+                    return;
+                }
                 dataOutDoc.clear();
                 dataOutDoc.addAll(convertToOutDocMW(DBControl.OutDoc.findDocs(param)));
                 outDocTable.setItems(dataOutDoc);
@@ -471,7 +505,7 @@ public class MainWindow extends AbstrWindow {
     @Override
     public void setData(AbstrDoc abstrDoc) {
 
-    }
+    } //not use
 
     @Override
     public void setStage(Stage thisWindowStage) {
@@ -481,7 +515,7 @@ public class MainWindow extends AbstrWindow {
     @Override
     public void setAbstrWindow(AbstrWindow abstrWindow) {
 
-    }
+    } //not use
 
     private ArrayList<InDocMW> convertToInDocMW(ArrayList<InDoc> inDocs) {
         ArrayList<InDocMW> inDocMWS = new ArrayList<>(inDocs.size());
