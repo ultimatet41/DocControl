@@ -86,15 +86,6 @@ public class AbonentWindow extends AbstrWindow {
             return row;
         });
 
-//        editModeCh.setOnAction(event -> {
-////            if (editModeCh.isSelected()) {
-////                editBt.setDisable(false);
-////            }
-////            else {
-////                editBt.setDisable(true);
-////            }
-////        });
-
         editBt.setOnAction(event -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setHeaderText("ЗАПРОС");

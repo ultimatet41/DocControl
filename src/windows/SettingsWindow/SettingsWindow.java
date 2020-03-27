@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import windows.AbstrWindow;
+import windows.MainWindow.MainWindow;
 
 import java.io.File;
 import java.util.prefs.Preferences;
@@ -25,7 +26,7 @@ public class SettingsWindow extends AbstrWindow {
 
     public void loadSettings() {
         if (preferences == null) {
-            preferences = Preferences.systemRoot().node("DocControl");
+            preferences = Preferences.userNodeForPackage(MainWindow.class);
         }
 
         addresDB.setText(getAddresDB());
@@ -66,17 +67,16 @@ public class SettingsWindow extends AbstrWindow {
             }
         });
 
-        selDumpExeBt.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
+        selDumpExeBt.setOnAction(event -> {
 
-                FileChooser fileChooser = new FileChooser();
-                fileChooser.setTitle("Open Resource File");
-                fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Исполняемый файл(exe)", "*.exe"));
-                File f = fileChooser.showOpenDialog(thisWindowStage);
-                if (f != null) mysqldumpTxt.setText(f.getAbsolutePath());
-            }
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Open Resource File");
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Исполняемый файл(exe)", "*.exe"));
+            File f = fileChooser.showOpenDialog(thisWindowStage);
+            if (f != null) mysqldumpTxt.setText(f.getAbsolutePath());
         });
+
+        exitBt.setOnAction(event -> System.exit(0));
     }
 
     public String getAddresDB() {
@@ -150,6 +150,8 @@ public class SettingsWindow extends AbstrWindow {
     private Button selDumpExeBt;
     @FXML
     private TextField mysqldumpTxt;
+    @FXML
+    private Button exitBt;
 
     private Preferences preferences;
     private static final String ADDRES_DB = "ADDRES_DB";

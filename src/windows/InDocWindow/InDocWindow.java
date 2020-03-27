@@ -427,16 +427,7 @@ public class InDocWindow extends AbstrWindow {
             inDoc.setOtherData(otherDataTxt.getText());
             if (isCreatedDoc()) {
                 try {
-                    int r = DBControl.InDoc.update(inDoc);
-                    if (r == DBControl.DATA_EXIST) {
-                        Alert alert = new Alert(Alert.AlertType.WARNING);
-                        alert.setHeaderText("ВНИМАНИЕ");
-                        alert.setTitle("ОШИБКА ДАННЫХ");
-                        alert.setContentText("СОХРАНЕНИЕ НЕ ВОЗМОЖНО. КАРТОЧКА С ТАКОЙ ДАТОЙ И НОМЕР УЖЕ СУЩЕСТВУЕТ.");
-                        alert.showAndWait();
-                        return;
-                    }
-
+                    DBControl.InDoc.update(inDoc);
                     abstrWindow.updateData();
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setHeaderText("ИНФОРМАЦИЯ");
@@ -451,14 +442,6 @@ public class InDocWindow extends AbstrWindow {
             }
             try {
                 int r = DBControl.InDoc.add(inDoc);
-                if (r == DBControl.DATA_EXIST) {
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setHeaderText("ВНИМАНИЕ");
-                    alert.setTitle("ОШИБКА ДАННЫХ");
-                    alert.setContentText("СОХРАНЕНИЕ НЕ ВОЗМОЖНО. КАРТОЧКА С ТАКОЙ ДАТОЙ И НОМЕР УЖЕ СУЩЕСТВУЕТ.");
-                    alert.showAndWait();
-                    return;
-                }
                 inDoc = DBControl.InDoc.getFromID(r);
                 abstrWindow.updateData();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);

@@ -108,9 +108,10 @@ public class MainWindow extends AbstrWindow {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText("ВНИМАНИЕ");
             alert.setTitle("ОШИБКА ПОДКЛЮЧЕНИЯ");
-            alert.setContentText("НЕ ВОХМОЖНО ПОДКЛЮЧИТСЯ К БД. ПРОВЕРЬТЕ НАСТРОЙКИ ПОДКЛЮЧЕНИЯ");
+            alert.setContentText("НЕ ВОЗМОЖНО ПОДКЛЮЧИТСЯ К БД. ПРОВЕРЬТЕ НАСТРОЙКИ ПОДКЛЮЧЕНИЯ");
             alert.showAndWait();
             settingsWindow.getStage().showAndWait();
+            connectDB();
         }
     }
 
@@ -297,55 +298,52 @@ public class MainWindow extends AbstrWindow {
             }
         });
 
-        createDumpDB.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                DirectoryChooser chooser = new DirectoryChooser();
-                File dir = chooser.showDialog(thisStage);
-                if (dir != null) {
-                    if (settingsWindow.getDumpexe() != null && !settingsWindow.getDumpexe().isEmpty()) {
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm");
-                            String dateTime = LocalDateTime.now().format(formatter);
+        createDumpDB.setOnAction(event -> {
+            DirectoryChooser chooser = new DirectoryChooser();
+            File dir = chooser.showDialog(thisStage);
+            if (dir != null) {
+                if (settingsWindow.getDumpexe() != null && !settingsWindow.getDumpexe().isEmpty()) {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm");
+                        String dateTime = LocalDateTime.now().format(formatter);
 
-                            String prog = "cmd.exe /c \"" + settingsWindow.getDumpexe() +"\"" + " -u " + settingsWindow.getLoginDB() +
-                                    " -p" + settingsWindow.getPasswordDB() + " " + settingsWindow.getNameDB() +
-                                    " > ";
-                            String fullFileName = dir.getAbsolutePath() + dateTime + ".sql";
-                            System.out.println(prog + fullFileName);
-                            Platform.runLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    try {
-                                        Runtime.getRuntime().exec(prog + fullFileName).waitFor();
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                    if (new File(fullFileName).exists()) {
-                                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                                        alert.setTitle("ОТЧЕТ");
-                                        alert.setHeaderText("ИНФОРМАЦИЯ");
-                                        alert.setContentText("РЕЗЕРВНАЯ КОПИЯ СОЗДАНА: (" + fullFileName + ")");
-                                        alert.showAndWait();
-                                    }
-                                    else {
-                                        Alert alert = new Alert(Alert.AlertType.WARNING);
-                                        alert.setTitle("ОТЧЕТ");
-                                        alert.setHeaderText("ПРЕДУПРЕЖДЕНИЕ");
-                                        alert.setContentText("РЕЗЕРВНАЯ КОПИЯ НЕ СОЗДАНА!");
-                                        alert.showAndWait();
-                                    }
+                        String prog = "cmd.exe /c \"" + settingsWindow.getDumpexe() +"\"" + " -u " + settingsWindow.getLoginDB() +
+                                " -p" + settingsWindow.getPasswordDB() + " " + settingsWindow.getNameDB() +
+                                " > ";
+                        String fullFileName = dir.getAbsolutePath() +File.separator + dateTime + ".sql";
+                        System.out.println(prog + fullFileName);
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    Runtime.getRuntime().exec(prog + fullFileName).waitFor();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
                                 }
-                            });
-                    }
-                    else {
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("ОТЧЕТ");
-                        alert.setHeaderText("ИНФОРМАЦИЯ");
-                        alert.setContentText("НЕ ДОСТАТОЧНО ПАРАМЕТРОВ!");
-                        alert.showAndWait();
-                    }
+                                if (new File(fullFileName).exists()) {
+                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setTitle("ОТЧЕТ");
+                                    alert.setHeaderText("ИНФОРМАЦИЯ");
+                                    alert.setContentText("РЕЗЕРВНАЯ КОПИЯ СОЗДАНА: (" + fullFileName + ")");
+                                    alert.showAndWait();
+                                }
+                                else {
+                                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                                    alert.setTitle("ОТЧЕТ");
+                                    alert.setHeaderText("ПРЕДУПРЕЖДЕНИЕ");
+                                    alert.setContentText("РЕЗЕРВНАЯ КОПИЯ НЕ СОЗДАНА!");
+                                    alert.showAndWait();
+                                }
+                            }
+                        });
+                }
+                else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("ОТЧЕТ");
+                    alert.setHeaderText("ИНФОРМАЦИЯ");
+                    alert.setContentText("НЕ ДОСТАТОЧНО ПАРАМЕТРОВ!");
+                    alert.showAndWait();
                 }
             }
         });
@@ -544,7 +542,7 @@ public class MainWindow extends AbstrWindow {
                 //Image image = new Image(inDocWindow.getClass().getResourceAsStream("../rsc/doc.png"));
                 Stage stage = new Stage();
                 stage.setTitle("НАСТРОЙКИ");
-                stage.setScene(new Scene(root, 800, 200));
+                stage.setScene(new Scene(root, 800, 300));
                 //stage.getIcons().add(image);
                 settingsWindow.setStage(stage);
                 if (settingsWindow.getNameDB().isEmpty()) {

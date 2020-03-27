@@ -11,64 +11,6 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class DBControl {
-
-    public static void main(String[] args) {
-        try {
-            DBControl.connectDB(DBControl.LOCAL_ADDRESS, "mydb1", "root", "000111qQ");
-          //  System.out.println(InDoc.add(new data.InDoc(null, "565", "36433", "2020-01-13", "tehxt")));
-           // System.out.println(InDoc.isExist(new data.InDoc(null, "565", "36433", "2020-01-13", "tehxt")));
-           // DBControl.InDoc.update(new data.InDoc(1, "00000", "36433", "2020-01-13", "tehxt"));
-//            for (data.InDoc inDoc : DBControl.InDoc.getInDocFromDate("2020-01-01", "2020-01-14") ) {
-//                System.out.println(inDoc);
-//            }
-//            System.out.println(DBControl.InDoc.getFromID(2));
-            //System.out.println(DBControl.OutDoc.add(new data.OutDoc(null, "221", "2020-01-14", "text")));
-            //DBControl.OutDoc.update(new data.OutDoc(1, "5555", "2020-01-14", "tesxtrs"));
-            //System.out.println(DBControl.OutDoc.getFromID(1));
-//            for (data.OutDoc  outDoc: DBControl.OutDoc.getFromDate("2020-01-13" , "2020-01-14")) {
-//                System.out.println(outDoc);
-//            }
-            //System.out.println(DBControl.Abonent.add(new data.Abonent(null, "name", "desc")));
-         //   DBControl.Abonent.update(new data.Abonent(1, "tete", "bvbcbcvbcv"));
-         //   System.out.println(DBControl.Abonent.getFromID(1));
-//            System.out.println(DBControl.Person.add(new data.Person(null, "fname", "lname",
-//                    "patron", "desc")));
-//            DBControl.Abonent.getAll();
-//            data.Person person = DBControl.Person.getFromID(1);
-//            System.out.println(person);
-//            person.setFirstName("Konstantin");
-//            DBControl.Person.update(person);
-            //DBControl.Person.getAll();
-//            System.out.println(SysTrf.add(new SystemTransfer(null, "Email", "pochta")));
-//            SystemTransfer transfer = DBControl.SysTrf.getFromID(1);
-//            System.out.println(transfer);
-//            transfer.setNameSysTrf("SADKO");
-//            transfer.setDescSysTrf("FUCK");
-//            DBControl.SysTrf.update(transfer);
-//            System.out.println(DBControl.SysTrf.getFromID(1));
-//            DBControl.SysTrf.getAll();
-
-//            DBControl.DocLink.delete(DBControl.InDoc.getFromID(1), DBControl.OutDoc.getFromID(1));
-// System.out.println(DocLink.add(DBControl.InDoc.getFromID(1), DBControl.OutDoc.getFromID(1)));
-//            System.out.println(DocLink.getDocIn(DBControl.InDoc.getFromID(1)));
-//            System.out.println(DBControl.AbonentLink.add(DBControl.OutDoc.getFromID(1), DBControl.Abonent.getFromID(1)));
-//            System.out.println(DBControl.AbonentLink.getOfDoc(DBControl.InDoc.getFromID(1)));
-//            System.out.println(DBControl.AbonentLink.getOfDoc(DBControl.OutDoc.getFromID(1)));
-//            DBControl.AbonentLink.delete(DBControl.OutDoc.getFromID(1), DBControl.Abonent.getFromID(1));
-            //System.out.println(DBControl.DocLink.getDocOf(DBControl.InDoc.getFromID(1)));1
-// System.out.println(DBControl.PersonLink.add(DBControl.InDoc.getFromID(1), DBControl.Person.getFromID(1)));
-//            System.out.println(DBControl.PersonLink.getOfDoc(DBControl.InDoc.getFromID(1)));
-//            DBControl.PersonLink.delete(DBControl.InDoc.getFromID(1), DBControl.Person.getFromID(1));
-//            System.out.println(DBControl.SysTrfLink.add(DBControl.OutDoc.getFromID(1), DBControl.SysTrf.getFromID(1)));
-//            System.out.println(DBControl.SysTrfLink.getOfDoc(DBControl.OutDoc.getFromID(1)));
-//DBControl.SysTrfLink.delete(DBControl.InDoc.getFromID(1), DBControl.SysTrf.getFromID(1));
-//            System.out.println(InDoc.getFromInNumAndDate("565", "2020-01-13"));
-          //  System.out.println(DBControl.OutDoc.getFromNumDocAndDate("5555", "2020-01-14"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public final static String LOCAL_ADDRESS = "jdbc:mysql://localhost/";
     public final static int DATA_EXIST = -1;
     public final static int DATA_IS_NOT_CREATED = -2;
@@ -190,8 +132,7 @@ public class DBControl {
 
     public static class InDoc {
         public static int add(data.InDoc inDoc) throws SQLException {
-            //if (isExist(inDoc)) return DATA_EXIST;
-            String sql = "INSERT INTO inDoc (inNum, currNum, dateDc, dateIn, descInDoc, otherData) VALUES (?, ?, ?, ?, ?, ?);";
+            String sql = "INSERT INTO InDoc (inNum, currNum, dateDc, dateIn, descInDoc, otherData) VALUES (?, ?, ?, ?, ?, ?);";
             PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, inDoc.getInNum());
             statement.setString(2, inDoc.getCurrNum());
@@ -209,28 +150,8 @@ public class DBControl {
             return newId;
         }
 
-//        public static boolean isExist(data.InDoc inDoc) throws SQLException {
-//            String sql = "SELECT * FROM inDoc WHERE currNum = '" + inDoc.getCurrNum() + "' AND dateDc = '" + inDoc.getDateDc()+"';";
-//            ResultSet  set = connect.createStatement().executeQuery(sql);
-//            while (set.next()) {
-//                return true;
-//            }
-//            return false;
-//        }
-
         public static int update(data.InDoc inDoc) throws SQLException {
-//            System.out.println(inDoc);
-//            String sql = "SELECT * FROM inDoc WHERE currNum = '" + inDoc.getCurrNum() + "' AND dateDc = '" + inDoc.getDateDc()+"';";
-//            ResultSet  set = connect.createStatement().executeQuery(sql);
-//            Integer idDocIn = -1;
-//            while (set.next()) {
-//                idDocIn = set.getInt("idInDoc");
-//                System.out.println("idInDoc = " + idDocIn);
-//                break;
-//            }
-//            if (idDocIn != -1 && inDoc.getIdInDoc().equals(idDocIn)) return DATA_EXIST;
-
-            String sql = "UPDATE inDoc SET inNum = ?, currNum = ?, dateDc = ?, dateIn = ?, descInDoc = ?, otherData= ? WHERE idInDoc = " + inDoc.getIdInDoc() + ";";
+            String sql = "UPDATE InDoc SET inNum = ?, currNum = ?, dateDc = ?, dateIn = ?, descInDoc = ?, otherData= ? WHERE idInDoc = " + inDoc.getIdInDoc() + ";";
             System.out.println(sql);
             PreparedStatement statement = connect.prepareStatement(sql);
             statement.setString(1, inDoc.getInNum());
@@ -244,7 +165,7 @@ public class DBControl {
         }
 
         public static ArrayList<data.InDoc> getFromDate(String startDate, String endDate) throws SQLException {
-            String sql = "SELECT * FROM inDoc WHERE dateDc >= '" + startDate +"' AND dateDc <= '" + endDate + "" +
+            String sql = "SELECT * FROM InDoc WHERE dateDc >= '" + startDate +"' AND dateDc <= '" + endDate + "" +
                     "ORDER BY currNum';";
             ResultSet set = connect.createStatement().executeQuery(sql);
             ArrayList<data.InDoc> inDocs = new ArrayList<>();
@@ -262,7 +183,7 @@ public class DBControl {
         }
 
         public static data.InDoc getFromID(Integer idIndDoc) throws SQLException {
-            String sql = "SELECT * FROM inDoc WHERE idInDoc = " + idIndDoc + ";";
+            String sql = "SELECT * FROM InDoc WHERE idInDoc = " + idIndDoc + ";";
             ResultSet set = connect.createStatement().executeQuery(sql);
             while (set.next()) {
                 Integer idDocIn = set.getInt("idInDoc");
@@ -278,7 +199,7 @@ public class DBControl {
         }
 
         public static data.InDoc getFromInNumAndDate(String inNum, String date) throws SQLException {
-            String sql = "SELECT * FROM inDoc WHERE inNum = '" + inNum + "' AND dateDc = '" + date +"';";
+            String sql = "SELECT * FROM InDoc WHERE inNum = '" + inNum + "' AND dateDc = '" + date +"';";
             ResultSet set = connect.createStatement().executeQuery(sql);
             set.next();
             Integer idDocIn = set.getInt("idInDoc");
@@ -295,12 +216,12 @@ public class DBControl {
             String sql;
             int s = param.size();
             if (param.containsKey(ID_ABONENT)) {
-                sql = "SELECT * FROM indoc i LEFT JOIN AbonentLink al ON al.idDoc = i.idInDoc " +
+                sql = "SELECT * FROM InDoc i LEFT JOIN AbonentLink al ON al.idDoc = i.idInDoc " +
                         " WHERE al.idAbonent = " + param.get(ID_ABONENT).toString() + " AND al.typeDoc = 'i'";
                 if (s > 1) sql += " AND ";
                 else sql += ";";
             }
-            else sql = "SELECT * FROM inDoc i WHERE ";
+            else sql = "SELECT * FROM InDoc i WHERE ";
             //SELECT * FROM indoc i LEFT JOIN AbonentLink al ON al.idAbonent = 61 WHERE al.typeDoc = "i";
             for (HashMap.Entry<String, String> entry : param.entrySet()) {
                 switch (entry.getKey()) {
@@ -348,15 +269,14 @@ public class DBControl {
         }
 
         public static void delete(data.InDoc inDoc) throws SQLException {
-            String sql = "DELETE FROM inDoc WHERE idInDoc = " + inDoc.getIdInDoc() +";";
+            String sql = "DELETE FROM InDoc WHERE idInDoc = " + inDoc.getIdInDoc() +";";
             connect.createStatement().execute(sql);
         }
     }
 
     public static class OutDoc {
         public static Integer add(data.OutDoc outDoc) throws SQLException {
-           // if (isExist(outDoc)) return DATA_EXIST;
-            String sql = "INSERT INTO outDoc (numDoc, dateDc, descOutDoc, otherData) VALUES (?, ?, ?, ?);";
+            String sql = "INSERT INTO OutDoc (numDoc, dateDc, descOutDoc, otherData) VALUES (?, ?, ?, ?);";
             PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, outDoc.getNumDoc());
             statement.setString(2, outDoc.getDateDc());
@@ -372,28 +292,8 @@ public class DBControl {
             return newId;
         }
 
-//        public static boolean isExist(data.OutDoc outDoc) throws SQLException {
-//            String sql= "SELECT * FROM outDoc WHERE numDoc = '" + outDoc.getNumDoc() + "' AND dateDc = '" + outDoc.getDateDc() + "';";
-//            ResultSet set = connect.createStatement().executeQuery(sql);
-//            while (set.next()) {
-//                return  true;
-//            }
-//            return false;
-//        }
-
         public static int update(data.OutDoc outDoc) throws SQLException {
-//            System.out.println(outDoc);
-//            String sql= "SELECT * FROM outDoc WHERE numDoc = '" + outDoc.getNumDoc() + "' AND dateDc = '" + outDoc.getDateDc() + "';";
-//            ResultSet  set = connect.createStatement().executeQuery(sql);
-//            Integer idOutDoc = -1;
-//            while (set.next()) {
-//                idOutDoc = set.getInt("idOutDoc");
-//                System.out.println("idInDoc = " + idOutDoc);
-//                break;
-//            }
-//            if (idOutDoc != -1 && outDoc.getIdOutDoc().equals(idOutDoc)) return DATA_EXIST;
-
-            String sql = "UPDATE outDoc SET numDoc = ?, dateDc = ?, descOutDoc = ?, otherData = ? WHERE idOutDoc = ?;";
+            String sql = "UPDATE OutDoc SET numDoc = ?, dateDc = ?, descOutDoc = ?, otherData = ? WHERE idOutDoc = ?;";
             PreparedStatement statement = connect.prepareStatement(sql);
             statement.setString(1, outDoc.getNumDoc());
             statement.setString(2, outDoc.getDateDc());
@@ -405,7 +305,7 @@ public class DBControl {
         }
 
         public static data.OutDoc getFromID(Integer idOutDoc) throws SQLException {
-            String sql = "SELECT * FROM outDoc WHERE idOutDoc = " + idOutDoc + ";";
+            String sql = "SELECT * FROM OutDoc WHERE idOutDoc = " + idOutDoc + ";";
             ResultSet set = connect.createStatement().executeQuery(sql);
             set.next();
             Integer id = set.getInt("idOutDoc");
@@ -417,7 +317,7 @@ public class DBControl {
         }
 
         public static ArrayList<data.OutDoc> getFromDate(String startDate, String endDate) throws SQLException {
-            String sql = "SELECT * FROM outDoc WHERE dateDc >= '" + startDate +"' AND dateDc <= '" + endDate +" " +
+            String sql = "SELECT * FROM OutDoc WHERE dateDc >= '" + startDate +"' AND dateDc <= '" + endDate +" " +
                     "ORDER BY numDoc';";
             ResultSet set= connect.createStatement().executeQuery(sql);
             ArrayList<data.OutDoc> outDocs = new ArrayList<>();
@@ -433,7 +333,7 @@ public class DBControl {
         }
 
         public static data.OutDoc getFromNumDocAndDate(String numDoc, String dateDc) throws SQLException {
-            String sql = "SELECT * FROM outDoc WHERE numDoc = '" + numDoc + "' AND dateDc = '" + dateDc + "';";
+            String sql = "SELECT * FROM OutDoc WHERE numDoc = '" + numDoc + "' AND dateDc = '" + dateDc + "';";
             ResultSet set = connect.createStatement().executeQuery(sql);
             set.next();
             Integer id = set.getInt("idOutDoc");
@@ -449,13 +349,12 @@ public class DBControl {
             int s = param.size();
             System.out.println("size: " + s);
             if (param.containsKey(ID_ABONENT)) {
-                sql = "SELECT * FROM outdoc o LEFT JOIN AbonentLink al ON al.idDoc = o.idOutDoc " +
+                sql = "SELECT * FROM OutDoc o LEFT JOIN AbonentLink al ON al.idDoc = o.idOutDoc " +
                         " WHERE al.idAbonent = " + param.get(ID_ABONENT).toString() + " AND al.typeDoc = 'o'";
                 if (s > 1) sql += " AND ";
                 else sql += ";";
             }
-            else sql = "SELECT * FROM outdoc o WHERE ";
-
+            else sql = "SELECT * FROM OutDoc o WHERE ";
 
             for (HashMap.Entry<String, String> entry : param.entrySet()) {
                 switch (entry.getKey()) {
@@ -502,28 +401,29 @@ public class DBControl {
         }
 
         public static void delete(data.OutDoc outDoc) throws SQLException {
-            String sql = "DELETE FROM outDoc WHERE idOutDoc = " + outDoc.getIdOutDoc() +";";
+            String sql = "DELETE FROM OutDoc WHERE idOutDoc = " + outDoc.getIdOutDoc() +";";
             connect.createStatement().execute(sql);
         }
     }
 
     public static class Abonent {
         public static Integer add(data.Abonent abonent) throws SQLException {
-            if (isExist(abonent)) return DATA_EXIST;
-            String sql = "INSERT INTO abonent (name, descAbonent) VALUES (?, ?);";
-            PreparedStatement statement = connect.prepareStatement(sql);
+            String sql = "INSERT INTO Abonent (name, descAbonent) VALUES (?, ?);";
+            PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);;
             statement.setString(1, abonent.getNameAbonent());
             statement.setString(2, abonent.getDescAbonent());
-            statement.execute();
-            sql = "SELECT * FROM abonent WHERE name = '" + abonent.getNameAbonent() +
-                    "' AND descAbonent = '" + abonent.getDescAbonent() + "';";
-            ResultSet set = connect.createStatement().executeQuery(sql);
-            set.next();
-            return set.getInt("idAbonent");
+            Integer numero = statement.executeUpdate();
+            ResultSet rs = statement.getGeneratedKeys();
+            int newId = DATA_IS_NOT_CREATED;
+            if (rs.next()){
+                newId = rs.getInt(1);
+            }
+            System.out.println(newId);
+            return newId;
         }
 
         public static boolean isExist(data.Abonent abonent) throws SQLException {
-            String sql = "SELECT * FROM abonent WHERE name = '" + abonent.getNameAbonent() +
+            String sql = "SELECT * FROM Abonent WHERE name = '" + abonent.getNameAbonent() +
                     "';";
             ResultSet set = connect.createStatement().executeQuery(sql);
             while (set.next()) {
@@ -533,7 +433,7 @@ public class DBControl {
         }
 
         public static void update(data.Abonent abonent) throws SQLException {
-            String sql = "UPDATE abonent SET name = ?, descAbonent = ? WHERE idAbonent = ?;";
+            String sql = "UPDATE Abonent SET name = ?, descAbonent = ? WHERE idAbonent = ?;";
             PreparedStatement statement = connect.prepareStatement(sql);
             statement.setString(1, abonent.getNameAbonent());
             statement.setString(2, abonent.getDescAbonent());
@@ -542,7 +442,7 @@ public class DBControl {
         }
 
         public static data.Abonent getFromID(Integer idAbonent) throws SQLException {
-            String sql = "SELECT * FROM abonent WHERE idAbonent = " + idAbonent + ";";
+            String sql = "SELECT * FROM Abonent WHERE idAbonent = " + idAbonent + ";";
             ResultSet set = connect.createStatement().executeQuery(sql);
             set.next();
             Integer id = set.getInt("idAbonent");
@@ -552,7 +452,7 @@ public class DBControl {
         }
 
         public static ArrayList<data.Abonent> getAll() throws SQLException {
-            String sql = "SELECT * FROM abonent;";
+            String sql = "SELECT * FROM Abonent;";
             ResultSet set = connect.createStatement().executeQuery(sql);
             ArrayList<data.Abonent> abonents = new ArrayList<>();
             while (set.next()) {
@@ -565,7 +465,7 @@ public class DBControl {
         }
 
         public static ArrayList<data.Abonent> findForName(String inName) throws SQLException {
-            String sql = "SELECT * FROM abonent WHERE name LIKE '%" + inName + "%';";
+            String sql = "SELECT * FROM Abonent WHERE name LIKE '%" + inName + "%';";
             ResultSet set = connect.createStatement().executeQuery(sql);
             ArrayList<data.Abonent> abonents = new ArrayList<>();
             while (set.next()) {
@@ -580,24 +480,24 @@ public class DBControl {
 
     public static class Person {
         public static Integer add(data.Person person) throws SQLException {
-            if (isExist(person)) return DATA_EXIST;
-            String sql = "INSERT INTO person (fname, lname, patron, descPerson) VALUES (?, ?, ?, ?);";
-            PreparedStatement statement = connect.prepareStatement(sql);
+            String sql = "INSERT INTO Person (fname, lname, patron, descPerson) VALUES (?, ?, ?, ?);";
+            PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);;
             statement.setString(1, person.getFirstName());
             statement.setString(2, person.getLastName());
             statement.setString(3, person.getPatronPers());
             statement.setString(4, person.getDescPerson());
-            statement.execute();
-            sql = "SELECT * FROM person WHERE fname = '" + person.getFirstName() + "' AND " +
-                    "lname = '" + person.getLastName() + "' AND " +
-                    "patron = '" + person.getPatronPers() +"';";
-            ResultSet set = connect.createStatement().executeQuery(sql);
-            set.next();
-            return set.getInt("idPerson");
+            Integer numero = statement.executeUpdate();
+            ResultSet rs = statement.getGeneratedKeys();
+            int newId = DATA_IS_NOT_CREATED;
+            if (rs.next()){
+                newId = rs.getInt(1);
+            }
+            System.out.println(newId);
+            return newId;
         }
 
         public static boolean isExist(data.Person person) throws SQLException {
-            String sql = "SELECT * FROM person WHERE fname = '" + person.getFirstName() + "' AND " +
+            String sql = "SELECT * FROM Person WHERE fname = '" + person.getFirstName() + "' AND " +
                     "lname = '" + person.getLastName() + "' AND " +
                     "patron = '" + person.getPatronPers() +"';";
             ResultSet set = connect.createStatement().executeQuery(sql);
@@ -608,7 +508,7 @@ public class DBControl {
         }
 
         public static void update(data.Person person) throws SQLException {
-            String sql = "UPDATE person SET fname = ?, lname = ?, patron = ?, descPerson = ? WHERE idPerson = ?;";
+            String sql = "UPDATE Person SET fname = ?, lname = ?, patron = ?, descPerson = ? WHERE idPerson = ?;";
             PreparedStatement statement = connect.prepareStatement(sql);
             statement.setString(1, person.getFirstName());
             statement.setString(2, person.getLastName());
@@ -619,7 +519,7 @@ public class DBControl {
         }
 
         public static data.Person getFromID(Integer idPerson) throws SQLException {
-            String sql = "SELECT * FROM person WHERE idPerson = " + idPerson + ";";
+            String sql = "SELECT * FROM Person WHERE idPerson = " + idPerson + ";";
             ResultSet set = connect.createStatement().executeQuery(sql);
             set.next();
             Integer id = set.getInt("idPerson");
@@ -631,7 +531,7 @@ public class DBControl {
         }
 
         public static ArrayList<data.Person> getAll() throws SQLException {
-            String sql = "SELECT * FROM person;";
+            String sql = "SELECT * FROM Person;";
             ResultSet set = connect.createStatement().executeQuery(sql);
             ArrayList<data.Person> people = new ArrayList<>();
             while (set.next()) {
@@ -646,7 +546,7 @@ public class DBControl {
         }
 
         public static ArrayList<data.Person> findForLName(String lName) throws SQLException {
-            String sql = "SELECT * FROM person WHERE lname LIKE '%" + lName + "%';";
+            String sql = "SELECT * FROM Person WHERE lname LIKE '%" + lName + "%';";
             ResultSet set = connect.createStatement().executeQuery(sql);
             ArrayList<data.Person> people = new ArrayList<>();
             while (set.next()) {
@@ -663,20 +563,22 @@ public class DBControl {
 
     public static class SysTrf {
         public static Integer add(data.SystemTransfer transfer) throws SQLException {
-            if (isExist(transfer)) return DATA_EXIST;
-            String sql = "INSERT INTO systemTransfer (name, descSysTrf) VALUES (?, ?);";
-            PreparedStatement statement = connect.prepareStatement(sql);
+            String sql = "INSERT INTO SystemTransfer  (name, descSysTrf) VALUES (?, ?);";
+            PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);;
             statement.setString(1, transfer.getNameSysTrf());
             statement.setString(2, transfer.getDescSysTrf());
-            statement.execute();
-            sql = "SELECT * FROM SystemTransfer WHERE name = '" + transfer.getNameSysTrf() +"';";
-            ResultSet set = connect.createStatement().executeQuery(sql);
-            set.next();
-            return set.getInt("idSysTransfer");
+            Integer numero = statement.executeUpdate();
+            ResultSet rs = statement.getGeneratedKeys();
+            int newId = DATA_IS_NOT_CREATED;
+            if (rs.next()){
+                newId = rs.getInt(1);
+            }
+            System.out.println(newId);
+            return newId;
         }
 
         public static boolean isExist(data.SystemTransfer transfer) throws SQLException {
-            String sql = "SELECT * FROM SystemTransfer WHERE name = '" + transfer.getNameSysTrf() + "';";
+            String sql = "SELECT * FROM SystemTransfer  WHERE name = '" + transfer.getNameSysTrf() + "';";
             ResultSet set = connect.createStatement().executeQuery(sql);
             while (set.next()) {
                 return true;
@@ -685,7 +587,7 @@ public class DBControl {
         }
 
         public static void update(SystemTransfer transfer) throws SQLException {
-            String sql = "UPDATE systemTransfer SET name = ?, descSysTrf = ? WHERE idSysTransfer = ?;";
+            String sql = "UPDATE SystemTransfer SET name = ?, descSysTrf = ? WHERE idSysTransfer = ?;";
             PreparedStatement statement = connect.prepareStatement(sql);
             statement.setString(1, transfer.getNameSysTrf());
             statement.setString(2, transfer.getDescSysTrf());
@@ -720,8 +622,8 @@ public class DBControl {
     public static class DocLink {
         public static Integer add(AbstrDoc docOut, AbstrDoc docIn) throws SQLException {
             if (isExist(docOut, docIn)) return DATA_EXIST;
-            String sql = "INSERT INTO docLink (idDocOf, idDocIn, typeDoc, dateDc) VALUES (?, ?, ?, ?);";
-            PreparedStatement statement = connect.prepareStatement(sql);
+            String sql = "INSERT INTO DocLink (idDocOf, idDocIn, typeDoc, dateDc) VALUES (?, ?, ?, ?);";
+            PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);;
             if (docOut.getType().equals(AbstrDoc.INDOC)) {
                 data.InDoc  inDoc = (data.InDoc) docOut;
                 data.OutDoc outDoc = (data.OutDoc) docIn;
@@ -732,13 +634,14 @@ public class DBControl {
                 Date dateobj = new java.util.Date();
                 System.out.println(df.format(dateobj));
                 statement.setString(4, df.format(dateobj));
-                statement.execute();
-                sql = "SELECT * FROM docLink WHERE idDocOf = " + inDoc.getIdInDoc() + " AND " +
-                        "idDocIn = " + outDoc.getIdOutDoc() + " AND " +
-                        "typeDoc = '" + inDoc.getType() +"';";
-                ResultSet set = connect.createStatement().executeQuery(sql);
-                set.next();
-                return set.getInt("idDocLink");
+                Integer numero = statement.executeUpdate();
+                ResultSet rs = statement.getGeneratedKeys();
+                int newId = DATA_IS_NOT_CREATED;
+                if (rs.next()){
+                    newId = rs.getInt(1);
+                }
+                System.out.println(newId);
+                return newId;
             }
             else {
                 data.OutDoc outDoc = (data.OutDoc) docOut;
@@ -750,7 +653,7 @@ public class DBControl {
                 Date dateobj = new java.util.Date();
                 statement.setString(4, df.format(dateobj));
                 statement.execute();
-                sql = "SELECT * FROM docLink WHERE idDocOf = " + outDoc.getIdOutDoc() + " AND " +
+                sql = "SELECT * FROM DocLink WHERE idDocOf = " + outDoc.getIdOutDoc() + " AND " +
                         "idDocIn = " + inDoc.getIdInDoc() + " AND " +
                         "typeDoc = '" + docOut.getType() +"';";
                 ResultSet set = connect.createStatement().executeQuery(sql);
@@ -763,27 +666,26 @@ public class DBControl {
             if (docOf.getType().equals(AbstrDoc.INDOC)) {
                 data.InDoc  inDoc = (data.InDoc) docOf;
                 data.OutDoc outDoc = (data.OutDoc) docIn;
-                String sql = "SELECT * FROM docLink WHERE idDocOf = " + inDoc.getIdInDoc() + " AND " +
+                String sql = "SELECT * FROM DocLink WHERE idDocOf = " + inDoc.getIdInDoc() + " AND " +
                         "idDocIn = " + outDoc.getIdOutDoc() + " AND " +
                         "typeDoc = '" + inDoc.getType() +"';";
                 ResultSet set = connect.createStatement().executeQuery(sql);
                 while (set.next()) {
                     return true;
                 }
-                return false;
             }
             else {
                 data.OutDoc outDoc = (data.OutDoc) docOf;
                 data.InDoc inDoc = (data.InDoc) docIn;
-                String sql = "SELECT * FROM docLink WHERE idDocOf = " + outDoc.getIdOutDoc() + " AND " +
+                String sql = "SELECT * FROM DocLink WHERE idDocOf = " + outDoc.getIdOutDoc() + " AND " +
                         "idDocIn = " + inDoc.getIdInDoc() + " AND " +
                         "typeDoc = '" + docOf.getType() +"';";
                 ResultSet set = connect.createStatement().executeQuery(sql);
                 while (set.next()) {
                     return true;
                 }
-                return false;
             }
+            return false;
         }
 
         public static ArrayList<AbstrDoc> getOutDocs(AbstrDoc docOf) throws SQLException {
@@ -791,7 +693,7 @@ public class DBControl {
             ArrayList<AbstrDoc> docs = new ArrayList<>();
             if (docOf.getType().equals(AbstrDoc.INDOC)) {
                 data.InDoc inDoc = (data.InDoc) docOf;
-                sql = "SELECT * FROM docLink WHERE idDocOf = " + inDoc.getIdInDoc() + " AND " +
+                sql = "SELECT * FROM DocLink WHERE idDocOf = " + inDoc.getIdInDoc() + " AND " +
                         "typeDoc = '" + docOf.getType() +"';";
                 ResultSet set = connect.createStatement().executeQuery(sql);
                 while (set.next()) {
@@ -800,7 +702,7 @@ public class DBControl {
             }
             else {
                 data.OutDoc outDoc = (data.OutDoc) docOf;
-                sql = "SELECT * FROM docLink WHERE idDocOf = " + outDoc.getIdOutDoc() + " AND " +
+                sql = "SELECT * FROM DocLink WHERE idDocOf = " + outDoc.getIdOutDoc() + " AND " +
                         "typeDoc = '" + docOf.getType() +"';";
                 ResultSet set = connect.createStatement().executeQuery(sql);
                 while (set.next()) {
@@ -815,7 +717,7 @@ public class DBControl {
             ArrayList<AbstrDoc> docs = new ArrayList<>();
             if (docIn.getType().equals(AbstrDoc.INDOC)) {
                 data.InDoc inDoc = (data.InDoc) docIn;
-                sql = "SELECT * FROM docLink WHERE idDocIn = " + inDoc.getIdInDoc() + " AND " +
+                sql = "SELECT * FROM DocLink WHERE idDocIn = " + inDoc.getIdInDoc() + " AND " +
                         "typeDoc = '" + AbstrDoc.OUTDOC +"';";
                 ResultSet set = connect.createStatement().executeQuery(sql);
                 while (set.next()) {
@@ -824,7 +726,7 @@ public class DBControl {
             }
             else {
                 data.OutDoc outDoc = (data.OutDoc) docIn;
-                sql = "SELECT * FROM docLink WHERE idDocIn = " + outDoc.getIdOutDoc() + " AND " +
+                sql = "SELECT * FROM DocLink WHERE idDocIn = " + outDoc.getIdOutDoc() + " AND " +
                         "typeDoc = '" + AbstrDoc.INDOC +"';";
                 ResultSet set = connect.createStatement().executeQuery(sql);
                 while (set.next()) {
@@ -838,7 +740,7 @@ public class DBControl {
             if (docOf.getType().equals(AbstrDoc.INDOC)) {
                 data.InDoc inDoc = (data.InDoc) docOf;
                 data.OutDoc outDoc = (data.OutDoc) docIn;
-                String sql = "DELETE FROM docLink WHERE idDocOf = " + inDoc.getIdInDoc() + " AND " +
+                String sql = "DELETE FROM DocLink WHERE idDocOf = " + inDoc.getIdInDoc() + " AND " +
                         "idDocIn = " + outDoc.getIdOutDoc() + " AND " +
                         "typeDoc = '" + inDoc.getType() +"';";
                 connect.createStatement().execute(sql);
@@ -846,7 +748,7 @@ public class DBControl {
             else {
                 data.OutDoc outDoc = (data.OutDoc) docOf;
                 data.InDoc inDoc = (data.InDoc) docIn;
-                String sql = "DELETE FROM docLink WHERE idDocOf = " + outDoc.getIdOutDoc() + " AND " +
+                String sql = "DELETE FROM DocLink WHERE idDocOf = " + outDoc.getIdOutDoc() + " AND " +
                         "idDocIn = " + inDoc.getIdInDoc() + " AND " +
                         "typeDoc = '" + docOf.getType() +"';";
                 connect.createStatement().execute(sql);
@@ -858,8 +760,8 @@ public class DBControl {
     public static class AbonentLink {
         public static Integer add(AbstrDoc doc, data.Abonent abonent) throws SQLException {
             if (isExist(doc,abonent)) return DATA_EXIST;
-            String sql = "INSERT INTO abonentLink (idDoc, typeDoc, dateDc, idAbonent) VALUES (?, ?, ?, ?);";
-            PreparedStatement statement = connect.prepareStatement(sql);
+            String sql = "INSERT INTO AbonentLink (idDoc, typeDoc, dateDc, idAbonent) VALUES (?, ?, ?, ?);";
+            PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);;
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             Date dateobj = new java.util.Date();
             if(doc.getType().equals(AbstrDoc.INDOC)) {
@@ -869,13 +771,14 @@ public class DBControl {
                 statement.setString(2, inDoc.getType());
                 statement.setString(3, df.format(dateobj));
                 statement.setInt(4, abonent.getIdAbonent());
-                statement.execute();
-                sql = "SELECT * FROM abonentLink WHERE idDoc = " + inDoc.getIdInDoc() +
-                        " AND typeDoc = '" + inDoc.getType() +"'" +
-                        " AND idAbonent = " + abonent.getIdAbonent() + ";";
-                ResultSet set = connect.createStatement().executeQuery(sql);
-                set.next();
-                return set.getInt("idAbonentLink");
+                Integer numero = statement.executeUpdate();
+                ResultSet rs = statement.getGeneratedKeys();
+                int newId = DATA_IS_NOT_CREATED;
+                if (rs.next()){
+                    newId = rs.getInt(1);
+                }
+                System.out.println(newId);
+                return newId;
             }
             else {
                 data.OutDoc outDoc = (data.OutDoc) doc;
@@ -884,7 +787,7 @@ public class DBControl {
                 statement.setString(3, df.format(dateobj));
                 statement.setInt(4, abonent.getIdAbonent());
                 statement.execute();
-                sql = "SELECT * FROM abonentLink WHERE idDoc = " + outDoc.getIdOutDoc() +
+                sql = "SELECT * FROM AbonentLink WHERE idDoc = " + outDoc.getIdOutDoc() +
                         " AND typeDoc = '" + outDoc.getType() +"'" +
                         " AND idAbonent = " + abonent.getIdAbonent() + ";";
                 ResultSet set = connect.createStatement().executeQuery(sql);
@@ -896,63 +799,61 @@ public class DBControl {
         public static boolean isExist(AbstrDoc doc, data.Abonent abonent) throws SQLException {
             if (doc.getType().equals(AbstrDoc.INDOC)) {
                 data.InDoc inDoc = (data.InDoc) doc;
-                String sql = "SELECT * FROM abonentLink WHERE idDoc = " + inDoc.getIdInDoc()
+                String sql = "SELECT * FROM AbonentLink WHERE idDoc = " + inDoc.getIdInDoc()
                         + " AND typeDoc = '" + inDoc.getType() + "'"
                         + " AND idAbonent = " + abonent.getIdAbonent() + ";";
                 ResultSet set = connect.createStatement().executeQuery(sql);
                 while (set.next()) {
                     return true;
                 }
-                return false;
             }
             else {
                 data.OutDoc outDoc = (data.OutDoc) doc;
-                String sql = "SELECT * FROM abonentLink WHERE idDoc = " + outDoc.getIdOutDoc()
+                String sql = "SELECT * FROM AbonentLink WHERE idDoc = " + outDoc.getIdOutDoc()
                         + " AND typeDoc = '" + outDoc.getType() + "'"
                         + " AND idAbonent = " + abonent.getIdAbonent() + ";";
                 ResultSet set = connect.createStatement().executeQuery(sql);
                 while (set.next()) {
                     return true;
                 }
-                return false;
             }
+            return false;
         }
 
         public static ArrayList<data.Abonent> getOfDoc(AbstrDoc doc) throws SQLException {
             ArrayList<data.Abonent> abonents = new ArrayList<>();
             if (doc.getType().equals(AbstrDoc.INDOC)) {
                 data.InDoc inDoc = (data.InDoc) doc;
-                String sql = "SELECT * FROM abonentLink WHERE idDoc = " + inDoc.getIdInDoc()
+                String sql = "SELECT * FROM AbonentLink WHERE idDoc = " + inDoc.getIdInDoc()
                         + " AND typeDoc = '" + inDoc.getType() + "';";
                 ResultSet set = connect.createStatement().executeQuery(sql);
                 while (set.next()) {
                     abonents.add(DBControl.Abonent.getFromID(set.getInt("idAbonent")));
                 }
-                return abonents;
             }
             else {
                 data.OutDoc outDoc = (data.OutDoc) doc;
-                String sql = "SELECT * FROM abonentLink WHERE idDoc = " + outDoc.getIdOutDoc()
+                String sql = "SELECT * FROM AbonentLink WHERE idDoc = " + outDoc.getIdOutDoc()
                         + " AND typeDoc = '" + outDoc.getType() + "';";
                 ResultSet set = connect.createStatement().executeQuery(sql);
                 while (set.next()) {
                     abonents.add(DBControl.Abonent.getFromID(set.getInt("idAbonent")));
                 }
-                return abonents;
             }
+            return abonents;
         }
 
         public static void delete(AbstrDoc doc, data.Abonent abonent) throws SQLException {
             if (doc.getType().equals(AbstrDoc.INDOC)) {
                 data.InDoc inDoc = (data.InDoc) doc;
-                String sql = "DELETE FROM abonentLink WHERE idDoc = " + inDoc.getIdInDoc()
+                String sql = "DELETE FROM AbonentLink WHERE idDoc = " + inDoc.getIdInDoc()
                         + " AND typeDoc = '" + inDoc.getType() + "'"
                         + " AND idAbonent = " + abonent.getIdAbonent() + ";";
                 connect.createStatement().execute(sql);
             }
             else {
                 data.OutDoc outDoc = (data.OutDoc) doc;
-                String sql = "DELETE FROM abonentLink WHERE idDoc = " + outDoc.getIdOutDoc()
+                String sql = "DELETE FROM AbonentLink WHERE idDoc = " + outDoc.getIdOutDoc()
                         + " AND typeDoc = '" + outDoc.getType() + "'"
                         + " AND idAbonent = " + abonent.getIdAbonent() + ";";
                 connect.createStatement().execute(sql);
@@ -965,21 +866,22 @@ public class DBControl {
             if (isExist(doc, person)) return DATA_EXIST;
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             Date dateobj = new java.util.Date();
-            String sql = "INSERT INTO personLink (idDoc, typeDoc, dateDc, idPerson) VALUES (?, ?, ?, ?);";
-            PreparedStatement statement = connect.prepareStatement(sql);
+            String sql = "INSERT INTO PersonLink (idDoc, typeDoc, dateDc, idPerson) VALUES (?, ?, ?, ?);";
+            PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);;
             if (doc.getType().equals(AbstrDoc.INDOC)) {
                 data.InDoc inDoc = (data.InDoc) doc;
                 statement.setInt(1, inDoc.getIdInDoc());
                 statement.setString(2, inDoc.getType());
                 statement.setString(3, df.format(dateobj));
                 statement.setInt(4, person.getIdPerson());
-                statement.execute();
-                sql = "SELECT * FROM personLink WHERE idDoc = " + inDoc.getIdInDoc()
-                        + " AND typeDoc = '" + inDoc.getType() + "'"
-                        + " AND idPerson = " + person.getIdPerson() + ";";
-                ResultSet set = connect.createStatement().executeQuery(sql);
-                set.next();
-                return set.getInt("idPersonLink");
+                Integer numero = statement.executeUpdate();
+                ResultSet rs = statement.getGeneratedKeys();
+                int newId = DATA_IS_NOT_CREATED;
+                if (rs.next()){
+                    newId = rs.getInt(1);
+                }
+                System.out.println(newId);
+                return newId;
             }
             else {
                 data.OutDoc outDoc = (data.OutDoc) doc;
@@ -988,7 +890,7 @@ public class DBControl {
                 statement.setString(3, df.format(dateobj));
                 statement.setInt(4, person.getIdPerson());
                 statement.execute();
-                sql = "SELECT * FROM personLink WHERE idDoc = " + outDoc.getIdOutDoc()
+                sql = "SELECT * FROM PersonLink WHERE idDoc = " + outDoc.getIdOutDoc()
                         + " AND typeDoc = '" + outDoc.getType() + "'"
                         + " AND idPerson = " + person.getIdPerson() + ";";
                 ResultSet set = connect.createStatement().executeQuery(sql);
@@ -1001,26 +903,25 @@ public class DBControl {
             String sql;
             if(doc.getType().equals(AbstrDoc.INDOC)) {
                 data.InDoc inDoc = (data.InDoc) doc;
-                sql = "SELECT * FROM personLink WHERE idDoc = " + inDoc.getIdInDoc()
+                sql = "SELECT * FROM PersonLink WHERE idDoc = " + inDoc.getIdInDoc()
                         + " AND typeDoc = '" + inDoc.getType() + "'"
                         + " AND idPerson = " + person.getIdPerson() + ";";
                 ResultSet set = connect.createStatement().executeQuery(sql);
                 while (set.next()) {
                     return true;
                 }
-                return false;
             }
             else {
                 data.OutDoc outDoc = (data.OutDoc) doc;
-                sql = "SELECT * FROM personLink WHERE idDoc = " + outDoc.getIdOutDoc()
+                sql = "SELECT * FROM PersonLink WHERE idDoc = " + outDoc.getIdOutDoc()
                         + " AND typeDoc = '" + outDoc.getType() + "'"
                         + " AND idPerson = " + person.getIdPerson() + ";";
                 ResultSet set = connect.createStatement().executeQuery(sql);
                 while (set.next()) {
                     return true;
                 }
-                return false;
             }
+            return false;
         }
 
         public static ArrayList<data.Person> getOfDoc(AbstrDoc doc) throws SQLException {
@@ -1028,38 +929,37 @@ public class DBControl {
             ArrayList<data.Person> people = new ArrayList<>();
             if (doc.getType().equals(AbstrDoc.INDOC)) {
                 data.InDoc inDoc = (data.InDoc) doc;
-                sql = "SELECT * FROM personLink WHERE idDoc = " + inDoc.getIdInDoc()
+                sql = "SELECT * FROM PersonLink WHERE idDoc = " + inDoc.getIdInDoc()
                         + " AND typeDoc = '" + inDoc.getType() + "';";
                 ResultSet set = connect.createStatement().executeQuery(sql);
                 while (set.next()) {
                     people.add(DBControl.Person.getFromID(set.getInt("idPerson")));
                 }
-                return people;
             }
             else {
                 data.OutDoc outDoc = (data.OutDoc) doc;
-                sql = "SELECT * FROM personLink WHERE idDoc = " + outDoc.getIdOutDoc()
+                sql = "SELECT * FROM PersonLink WHERE idDoc = " + outDoc.getIdOutDoc()
                         + " AND typeDoc = '" + outDoc.getType() + "';";
                 ResultSet set = connect.createStatement().executeQuery(sql);
                 while (set.next()) {
                     people.add(DBControl.Person.getFromID(set.getInt("idPerson")));
                 }
-                return people;
             }
+            return people;
         }
 
         public static void delete(AbstrDoc doc, data.Person person) throws SQLException {
             String sql;
             if (doc.getType().equals(AbstrDoc.INDOC)) {
                 data.InDoc inDoc = (data.InDoc) doc;
-                sql = "DELETE FROM personLink WHERE idDoc = " + inDoc.getIdInDoc()
+                sql = "DELETE FROM PersonLink WHERE idDoc = " + inDoc.getIdInDoc()
                         + " AND typeDoc = '" + inDoc.getType() + "'"
                         + " AND idPerson = " + person.getIdPerson() + ";";
                 connect.createStatement().execute(sql);
             }
             else {
                 data.OutDoc outDoc = (data.OutDoc) doc;
-                sql = "DELETE FROM personLink WHERE idDoc = " + outDoc.getIdOutDoc()
+                sql = "DELETE FROM PersonLink WHERE idDoc = " + outDoc.getIdOutDoc()
                         + " AND typeDoc = '" + outDoc.getType() + "'"
                         + " AND idPerson = " + person.getIdPerson() + ";";
                 connect.createStatement().execute(sql);
@@ -1072,21 +972,22 @@ public class DBControl {
             if (isExist(doc, transfer)) return DATA_EXIST;
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             Date dateobj = new java.util.Date();
-            String sql = "INSERT INTO sysTrfLink (idDoc, typeDoc, dateDc, idSysTrf) VALUES (?, ?, ?, ?);";
-            PreparedStatement statement = connect.prepareStatement(sql);
+            String sql = "INSERT INTO SysTrfLink (idDoc, typeDoc, dateDc, idSysTrf) VALUES (?, ?, ?, ?);";
+            PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);;
             if (doc.getType().equals(AbstrDoc.INDOC)) {
                 data.InDoc inDoc = (data.InDoc) doc;
                 statement.setInt(1, inDoc.getIdInDoc());
                 statement.setString(2, inDoc.getType());
                 statement.setString(3, df.format(dateobj));
                 statement.setInt(4, transfer.getIdSysTransfer());
-                statement.execute();
-                sql = "SELECT * FROM sysTrfLink WHERE idDoc = " + inDoc.getIdInDoc()
-                        + " AND typeDoc = '" + inDoc.getType() +"'"
-                        + " AND idSysTrf = " + transfer.getIdSysTransfer();
-                ResultSet set = connect.createStatement().executeQuery(sql);
-                set.next();
-                return set.getInt("idSysTrfLink");
+                Integer numero = statement.executeUpdate();
+                ResultSet rs = statement.getGeneratedKeys();
+                int newId = DATA_IS_NOT_CREATED;
+                if (rs.next()){
+                    newId = rs.getInt(1);
+                }
+                System.out.println(newId);
+                return newId;
             }
             else {
                 data.OutDoc outDoc = (data.OutDoc) doc;
@@ -1095,7 +996,7 @@ public class DBControl {
                 statement.setString(3, df.format(dateobj));
                 statement.setInt(4, transfer.getIdSysTransfer());
                 statement.execute();
-                sql = "SELECT * FROM sysTrfLink WHERE idDoc = " + outDoc.getIdOutDoc()
+                sql = "SELECT * FROM SysTrfLink WHERE idDoc = " + outDoc.getIdOutDoc()
                         + " AND typeDoc = '" + outDoc.getType() +"'"
                         + " AND idSysTrf = " + transfer.getIdSysTransfer();
                 ResultSet set = connect.createStatement().executeQuery(sql);
@@ -1115,7 +1016,6 @@ public class DBControl {
                 while (set.next()) {
                     return true;
                 }
-                return false;
             }
             else {
                 data.OutDoc outDoc = (data.OutDoc) doc;
@@ -1126,8 +1026,8 @@ public class DBControl {
                 while (set.next()) {
                     return true;
                 }
-                return false;
             }
+            return false;
         }
 
         public static ArrayList<SystemTransfer> getOfDoc(AbstrDoc doc) throws SQLException {
@@ -1135,24 +1035,23 @@ public class DBControl {
             ArrayList<SystemTransfer> transfers = new ArrayList<>();
             if (doc.getType().equals(AbstrDoc.INDOC)) {
                 data.InDoc inDoc = (data.InDoc) doc;
-                sql = "SELECT * FROM sysTrfLink WHERE idDoc = " + inDoc.getIdInDoc()
+                sql = "SELECT * FROM SysTrfLink WHERE idDoc = " + inDoc.getIdInDoc()
                         + " AND typeDoc = '" + inDoc.getType() +"';";
                 ResultSet set = connect.createStatement().executeQuery(sql);
                 while (set.next()) {
                     transfers.add(DBControl.SysTrf.getFromID(set.getInt("idSysTrf")));
                 }
-                return transfers;
             }
             else {
                 data.OutDoc outDoc = (data.OutDoc) doc;
-                sql = "SELECT * FROM sysTrfLink WHERE idDoc = " + outDoc.getIdOutDoc()
+                sql = "SELECT * FROM SysTrfLink WHERE idDoc = " + outDoc.getIdOutDoc()
                         + " AND typeDoc = '" + outDoc.getType() +"';";
                 ResultSet set = connect.createStatement().executeQuery(sql);
                 while (set.next()) {
                     transfers.add(DBControl.SysTrf.getFromID(set.getInt("idSysTrf")));
                 }
-                return transfers;
             }
+            return transfers;
         }
 
         public static void delete(AbstrDoc doc, SystemTransfer transfer) throws SQLException {
@@ -1162,15 +1061,14 @@ public class DBControl {
                 sql = "DELETE FROM SysTrfLink WHERE idDoc = " + inDoc.getIdInDoc()
                         + " AND typeDoc = '" + inDoc.getType() +"'"
                         + " AND idSysTrf = " + transfer.getIdSysTransfer() +";";
-                connect.createStatement().execute(sql);
             }
             else {
                 data.OutDoc outDoc = (data.OutDoc) doc;
                 sql = "DELETE FROM SysTrfLink WHERE idDoc = " + outDoc.getIdOutDoc()
                         + " AND typeDoc = '" + outDoc.getType() +"'"
                         + " AND idSysTrf = " + transfer.getIdSysTransfer() +";";
-                connect.createStatement().execute(sql);
             }
+            connect.createStatement().execute(sql);
         }
     }
 }
