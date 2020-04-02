@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="271.0" prefWidth="769.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="windows.SettingsWindow.SettingsWindow">
    <children>
       <VBox alignment="CENTER" layoutX="265.0" layoutY="43.0" prefHeight="200.0" prefWidth="742.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -38,16 +35,19 @@
                 <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <TextField fx:id="mysqldumpTxt" editable="false" prefHeight="31.0" prefWidth="550.0" />
-                  <Button fx:id="selDumpExeBt" mnemonicParsing="false" text="Обзор" GridPane.columnIndex="1" />
-               </children>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                </rowConstraints>
+                <children>
+                    <TextField fx:id="mysqldumpTxt" editable="false" prefHeight="31.0" prefWidth="550.0"/>
+                    <Button fx:id="selDumpExeBt" mnemonicParsing="false" text="Обзор" GridPane.columnIndex="1"/>
+                </children>
             </GridPane>
-            <Button fx:id="saveSettings" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="38.0" prefWidth="742.0" text="Сохранить" VBox.vgrow="ALWAYS" />
-            <Button fx:id="exitBt" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Выход" VBox.vgrow="ALWAYS" />
+             <Button fx:id="saveSettings" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                     minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="38.0"
+                     prefWidth="742.0" text="Сохранить" VBox.vgrow="ALWAYS"/>
+             <Button fx:id="exitBt" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                     mnemonicParsing="false" text="Закрыть программу" VBox.vgrow="ALWAYS"/>
          </children>
       </VBox>
    </children>
