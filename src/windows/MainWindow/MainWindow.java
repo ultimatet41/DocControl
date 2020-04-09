@@ -4,8 +4,6 @@ import data.*;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -67,8 +65,7 @@ public class MainWindow extends AbstrWindow {
         outDocAddBt.setGraphic(imageView1);
         fDescTxt.setWrapText(true);
         fOtherDataTxt.setWrapText(true);
-        ComboBoxAutoComplid.autoCompleteComboBoxPlus(fAbonentBox, (typedText, objectToCompare) -> objectToCompare.getNameAbonent().toString().toLowerCase().contains(typedText.toLowerCase()));
-
+        ComboBoxAutoComplid.autoCompleteComboBoxPlus(fAbonentBox, (typedText, objectToCompare) -> objectToCompare.getNameAbonent().toLowerCase().contains(typedText.toLowerCase()));
     }
 
     private void initContextMenu() {
@@ -81,17 +78,17 @@ public class MainWindow extends AbstrWindow {
 
     private void initInDocTable() {
         inNumInDocCl = new TableColumn<>("ВХ. НОМЕР");
-        inNumInDocCl.setCellValueFactory(new PropertyValueFactory<InDocMW, String>("inNum"));
+        inNumInDocCl.setCellValueFactory(new PropertyValueFactory<>("inNum"));
         currNumInDocCl = new TableColumn<>("НОМЕР");
-        currNumInDocCl.setCellValueFactory(new PropertyValueFactory<InDocMW, String>("currNum"));
+        currNumInDocCl.setCellValueFactory(new PropertyValueFactory<>("currNum"));
         currNumInDocCl.setMaxWidth(2000);
         dateInDocCl = new TableColumn<>("ДАТА РЕГ.");
-        dateInDocCl.setCellValueFactory(new PropertyValueFactory<InDocMW, String>("dateDc"));
+        dateInDocCl.setCellValueFactory(new PropertyValueFactory<>("dateDc"));
         dateInDocCl.setMaxWidth(3000);
         descInDocCl = new TableColumn<>("ОПИСАНИЕ");
-        descInDocCl.setCellValueFactory(new PropertyValueFactory<InDocMW, String>("descInDoc"));
+        descInDocCl.setCellValueFactory(new PropertyValueFactory<>("descInDoc"));
         abonnentsInDocCl = new TableColumn<>("ПРИШЛО ОТ");
-        abonnentsInDocCl.setCellValueFactory(new PropertyValueFactory<InDocMW, String>("abonnents"));
+        abonnentsInDocCl.setCellValueFactory(new PropertyValueFactory<>("abonnents"));
         inDocTable.getColumns().addAll(currNumInDocCl, dateInDocCl, inNumInDocCl, descInDocCl, abonnentsInDocCl);
     }
 
@@ -117,15 +114,15 @@ public class MainWindow extends AbstrWindow {
 
     private void initOutDocTable() {
         numOutDocCl = new TableColumn<>("НОМЕР");
-        numOutDocCl.setCellValueFactory(new PropertyValueFactory<OutDocMW, String>("numDoc"));
+        numOutDocCl.setCellValueFactory(new PropertyValueFactory<>("numDoc"));
         numOutDocCl.setMaxWidth(2000);
         dateOutDocCl = new TableColumn<>("ДАТА РЕГ.");
-        dateOutDocCl.setCellValueFactory(new PropertyValueFactory<OutDocMW, String>("dateDc"));
+        dateOutDocCl.setCellValueFactory(new PropertyValueFactory<>("dateDc"));
         dateOutDocCl.setMaxWidth(3000);
         descOutDocCL = new TableColumn<>("ОПИСАНИЕ");
-        descOutDocCL.setCellValueFactory(new PropertyValueFactory<OutDocMW, String>("descOutDoc"));
+        descOutDocCL.setCellValueFactory(new PropertyValueFactory<>("descOutDoc"));
         abonnentsOutDocCl = new TableColumn<>("КОМУ ОТПР.");
-        abonnentsOutDocCl.setCellValueFactory(new PropertyValueFactory<OutDocMW, String>("abonnents"));
+        abonnentsOutDocCl.setCellValueFactory(new PropertyValueFactory<>("abonnents"));
         outDocTable.getColumns().addAll(numOutDocCl, dateOutDocCl, descOutDocCL, abonnentsOutDocCl);
     }
 
@@ -140,12 +137,7 @@ public class MainWindow extends AbstrWindow {
     }
 
     private void connectActions() {
-        addItemInDoc.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                addNewInDoc();
-            }
-        });
+        addItemInDoc.setOnAction(event -> addNewInDoc());
 
         setDateBt.setOnAction(event -> loadDataInTables());
 
@@ -163,12 +155,10 @@ public class MainWindow extends AbstrWindow {
                             InDocWindow inDocWindow = loader.getController();
                             inDocWindow.setData(doc);
                             inDocWindow.setAbstrWindow(MainWindow.this);
-                           // Image image = new Image(getClass().getResourceAsStream("doc.png"));
                             Stage stage = new Stage();
                             stage.setTitle("ВХОДЯЩИЙ ДОКУМЕНТ: №" + doc.getCurrNum());
                             stage.setScene(new Scene(root, 800, 700));
                             stage.getIcons().add(thisStage.getIcons().get(0));
-//                            stage.getScene().getStylesheets().add(thisStage.getScene().getStylesheets().get(0));
                             inDocWindow.setStage(stage);
                             stage.show();
                         } catch (IOException e) {
@@ -180,9 +170,7 @@ public class MainWindow extends AbstrWindow {
             }
         });
 
-        inDocAddBt.setOnAction(event -> {
-            addNewInDoc();
-        });
+        inDocAddBt.setOnAction(event -> addNewInDoc());
 
         outDocTable.setRowFactory(new Callback<TableView<OutDocMW>, TableRow<OutDocMW>>() {
             @Override
@@ -197,12 +185,10 @@ public class MainWindow extends AbstrWindow {
                             OutDocWindow outDocWindow = loader.getController();
                             outDocWindow.setData(doc);
                             outDocWindow.setAbstrWindow(MainWindow.this);
-                           // Image image = new Image(getClass().getResourceAsStream("doc.png"));
                             Stage stage = new Stage();
                             stage.setTitle("ИСХОДЯЩИЙ ДОКУМЕНТ: №" + doc.getNumDoc());
                             stage.setScene(new Scene(root, 800, 700));
                             stage.getIcons().add(thisStage.getIcons().get(0));
-//                            stage.getScene().getStylesheets().add(thisStage.getScene().getStylesheets().get(0));
                             outDocWindow.setStage(stage);
                             stage.show();
                         } catch (IOException e) {
@@ -222,12 +208,10 @@ public class MainWindow extends AbstrWindow {
                 OutDocWindow outDocWindow = loader.getController();
                 outDocWindow.setData(null);
                 outDocWindow.setAbstrWindow(MainWindow.this);
-               // Image image = new Image(getClass().getResourceAsStream("doc.png"));
                 Stage stage = new Stage();
                 stage.setTitle("НОВЫЙ ИСХОДЯЩИЙ ДОКУМЕНТ");
                 stage.setScene(new Scene(root, 800, 700));
                 stage.getIcons().add(thisStage.getIcons().get(0));
-//                stage.getScene().getStylesheets().add(thisStage.getScene().getStylesheets().get(0));
                 outDocWindow.setStage(stage);
                 stage.show();
             } catch (IOException e) {
@@ -235,9 +219,7 @@ public class MainWindow extends AbstrWindow {
             }
         });
 
-        findBt.setOnAction(event -> {
-            finder();
-        });
+        findBt.setOnAction(event -> finder());
 
         fOutDoc.setOnAction(event -> inNumDocTxt.setDisable(true));
 
@@ -311,30 +293,24 @@ public class MainWindow extends AbstrWindow {
                                 " > ";
                         String fullFileName = dir.getAbsolutePath() +File.separator + dateTime + ".sql";
                         System.out.println(prog + fullFileName);
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    Runtime.getRuntime().exec(prog + fullFileName).waitFor();
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                if (new File(fullFileName).exists()) {
-                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                                    alert.setTitle("ОТЧЕТ");
-                                    alert.setHeaderText("ИНФОРМАЦИЯ");
-                                    alert.setContentText("РЕЗЕРВНАЯ КОПИЯ СОЗДАНА: (" + fullFileName + ")");
-                                    alert.showAndWait();
-                                }
-                                else {
-                                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                                    alert.setTitle("ОТЧЕТ");
-                                    alert.setHeaderText("ПРЕДУПРЕЖДЕНИЕ");
-                                    alert.setContentText("РЕЗЕРВНАЯ КОПИЯ НЕ СОЗДАНА!");
-                                    alert.showAndWait();
-                                }
+                    Platform.runLater(() -> {
+                        try {
+                            Runtime.getRuntime().exec(prog + fullFileName).waitFor();
+                        } catch (InterruptedException | IOException e) {
+                            e.printStackTrace();
+                        }
+                        if (new File(fullFileName).exists()) {
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("ОТЧЕТ");
+                            alert.setHeaderText("ИНФОРМАЦИЯ");
+                            alert.setContentText("РЕЗЕРВНАЯ КОПИЯ СОЗДАНА: (" + fullFileName + ")");
+                            alert.showAndWait();
+                        } else {
+                            Alert alert = new Alert(Alert.AlertType.WARNING);
+                            alert.setTitle("ОТЧЕТ");
+                            alert.setHeaderText("ПРЕДУПРЕЖДЕНИЕ");
+                            alert.setContentText("РЕЗЕРВНАЯ КОПИЯ НЕ СОЗДАНА!");
+                            alert.showAndWait();
                             }
                         });
                 }
@@ -373,7 +349,7 @@ public class MainWindow extends AbstrWindow {
         if(fInDoc.isSelected()) {
             if ((fStartDatePk.getValue() != null && !fStartDatePk.getValue().toString().isEmpty()) &&
                     (fEndDatePk.getValue() != null && !fEndDatePk.getValue().toString().isEmpty())) {
-                if(fEndDatePk.getValue().compareTo(fStartDatePk.getValue()) == -1) {
+                if (fEndDatePk.getValue().compareTo(fStartDatePk.getValue()) < 0) {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setHeaderText("ВНИМАНИЕ!");
                     alert.setTitle("ОШИБКА ДАТЫ");
@@ -400,6 +376,7 @@ public class MainWindow extends AbstrWindow {
             }
             if (fAbonentBox.getSelectionModel().getSelectedItem() != null) {
                 Abonent abonent = ComboBoxAutoComplid.getComboBoxValue(fAbonentBox);
+                assert abonent != null;
                 param.put(DBControl.ID_ABONENT, String.valueOf(abonent.getIdAbonent()));
             }
             try {
@@ -421,7 +398,7 @@ public class MainWindow extends AbstrWindow {
         else if (fOutDoc.isSelected()) {
             if ((fStartDatePk.getValue() != null && !fStartDatePk.getValue().toString().isEmpty()) &&
                     (fEndDatePk.getValue() != null && !fEndDatePk.getValue().toString().isEmpty())) {
-                if(fEndDatePk.getValue().compareTo(fStartDatePk.getValue()) == -1) {
+                if (fEndDatePk.getValue().compareTo(fStartDatePk.getValue()) < 0) {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setHeaderText("ВНИМАНИЕ");
                     alert.setTitle("ОШИБКА ДАТЫ");
@@ -445,6 +422,7 @@ public class MainWindow extends AbstrWindow {
             }
             if (fAbonentBox.getSelectionModel().getSelectedItem() != null) {
                 Abonent abonent = ComboBoxAutoComplid.getComboBoxValue(fAbonentBox);
+                assert abonent != null;
                 param.put(DBControl.ID_ABONENT, String.valueOf(abonent.getIdAbonent()));
             }
             try {
@@ -467,7 +445,7 @@ public class MainWindow extends AbstrWindow {
     }
 
     private void loadDataInTables() {
-        if(endDate.getValue().compareTo(startDate.getValue()) == -1) {
+        if (endDate.getValue().compareTo(startDate.getValue()) < 0) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText("ВНИМАНИЕ");
             alert.setTitle("ОШИБКА ДАТЫ");
@@ -539,11 +517,9 @@ public class MainWindow extends AbstrWindow {
                 root = loader.load();
                 settingsWindow = loader.getController();
                 settingsWindow.setAbstrWindow(MainWindow.this);
-                //Image image = new Image(inDocWindow.getClass().getResourceAsStream("../rsc/doc.png"));
                 Stage stage = new Stage();
                 stage.setTitle("НАСТРОЙКИ");
                 stage.setScene(new Scene(root, 800, 300));
-                //stage.getIcons().add(image);
                 settingsWindow.setStage(stage);
                 if (settingsWindow.getNameDB().isEmpty()) {
                     stage.showAndWait();
@@ -588,7 +564,7 @@ public class MainWindow extends AbstrWindow {
     @FXML
     private TableColumn<InDocMW, String> abonnentsInDocCl;
     @FXML
-    ObservableList<InDocMW> dataInDoc = FXCollections.observableArrayList();
+    private ObservableList<InDocMW> dataInDoc = FXCollections.observableArrayList();
 
     @FXML
     private TableView<OutDocMW> outDocTable;
@@ -636,7 +612,7 @@ public class MainWindow extends AbstrWindow {
     private MenuItem addItemInDoc;
     @FXML
     private ComboBox<Abonent> fAbonentBox;
-    ObservableList<Abonent> abonents = FXCollections.observableArrayList();
+    private ObservableList<Abonent> abonents = FXCollections.observableArrayList();
 
     private Stage thisStage;
 

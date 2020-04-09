@@ -3,13 +3,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="271.0" prefWidth="769.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="windows.SettingsWindow.SettingsWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="271.0"
+            prefWidth="769.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="windows.SettingsWindow.SettingsWindow">
    <children>
       <VBox alignment="CENTER" layoutX="265.0" layoutY="43.0" prefHeight="200.0" prefWidth="742.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox alignment="CENTER" prefHeight="36.0" prefWidth="600.0">
                <children>
-                  <TextField fx:id="addresDB" prefHeight="25.0" prefWidth="326.0" promptText="Путь к Базе Данных" HBox.hgrow="ALWAYS" />
+                   <TextField fx:id="addresDB" disable="true" prefHeight="25.0" prefWidth="326.0"
+                              promptText="Путь к Базе Данных" HBox.hgrow="ALWAYS"/>
                   <Separator orientation="VERTICAL" prefHeight="36.0" prefWidth="13.0" />
                   <CheckBox fx:id="isLocalDB" mnemonicParsing="false" text="Локальная БД">
                      <font>
@@ -39,13 +42,14 @@
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                 </rowConstraints>
                 <children>
-                    <TextField fx:id="mysqldumpTxt" editable="false" prefHeight="31.0" prefWidth="550.0"/>
+                    <TextField fx:id="mysqldumpTxt" disable="true" editable="false" prefHeight="31.0" prefWidth="550.0"
+                               promptText="Путь к mysqldump"/>
                     <Button fx:id="selDumpExeBt" mnemonicParsing="false" text="Обзор" GridPane.columnIndex="1"/>
                 </children>
             </GridPane>
              <Button fx:id="saveSettings" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                     minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="38.0"
-                     prefWidth="742.0" text="Сохранить" VBox.vgrow="ALWAYS"/>
+                     minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="27.0"
+                     prefWidth="769.0" text="Сохранить" VBox.vgrow="ALWAYS"/>
              <Button fx:id="exitBt" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
                      mnemonicParsing="false" text="Закрыть программу" VBox.vgrow="ALWAYS"/>
          </children>

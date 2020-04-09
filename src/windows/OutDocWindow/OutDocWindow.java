@@ -169,13 +169,9 @@ public class OutDocWindow extends AbstrWindow {
             }
         });
 
-        saveBt.setOnAction(event -> {
-            saveDocument();
-        });
+        saveBt.setOnAction(event -> saveDocument());
 
-        closeBt.setOnAction(event -> {
-            thisWindowStage.hide();
-        });
+        closeBt.setOnAction(event -> thisWindowStage.hide());
 
         addInDocBt.setOnAction(event -> {
             if (!isCreatedDoc()) {
@@ -255,41 +251,41 @@ public class OutDocWindow extends AbstrWindow {
 
     private void initAbonentTable() {
         abonentNameCl = new TableColumn<>("НАИМЕНОВАНИЕ");
-        abonentNameCl.setCellValueFactory(new PropertyValueFactory<Abonent, String>("nameAbonent"));
+        abonentNameCl.setCellValueFactory(new PropertyValueFactory<>("nameAbonent"));
         abonentDescCl = new TableColumn<>("ОПИСАНИЕ");
-        abonentDescCl.setCellValueFactory(new PropertyValueFactory<Abonent, String>("descAbonent"));
+        abonentDescCl.setCellValueFactory(new PropertyValueFactory<>("descAbonent"));
         abonentTable.getColumns().addAll(abonentNameCl, abonentDescCl);
     }
 
     private void initSysTrfTable() {
         sysTrfNameCl = new TableColumn<>("НАИМЕНОВАНИЕ");
-        sysTrfNameCl.setCellValueFactory(new PropertyValueFactory<SystemTransfer, String>("nameSysTrf"));
+        sysTrfNameCl.setCellValueFactory(new PropertyValueFactory<>("nameSysTrf"));
         sysTrfDescCl = new TableColumn<>("ОПИСАНИЕ");
-        sysTrfDescCl.setCellValueFactory(new PropertyValueFactory<SystemTransfer, String>("descSysTrf"));
+        sysTrfDescCl.setCellValueFactory(new PropertyValueFactory<>("descSysTrf"));
         sysTrfTable.getColumns().addAll(sysTrfNameCl, sysTrfDescCl);
     }
 
     private void initPersonTable() {
         personfNameCl = new TableColumn<>("ИМЯ");
-        personfNameCl.setCellValueFactory(new PropertyValueFactory<Person, String>("firstName"));
+        personfNameCl.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         personlNameCl = new TableColumn<>("ФАМИЛИЯ");
-        personlNameCl.setCellValueFactory(new PropertyValueFactory<Person, String>("lastName"));
+        personlNameCl.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         personPatronCl = new TableColumn<>("ОТЧЕСТВО");
-        personPatronCl.setCellValueFactory(new PropertyValueFactory<Person, String>("patronPers"));
+        personPatronCl.setCellValueFactory(new PropertyValueFactory<>("patronPers"));
         personDescCl = new TableColumn<>("ОПИСАНИЕ");
-        personDescCl.setCellValueFactory(new PropertyValueFactory<Person, String>("descPerson"));
+        personDescCl.setCellValueFactory(new PropertyValueFactory<>("descPerson"));
         personTable.getColumns().addAll(personlNameCl, personfNameCl, personPatronCl, personDescCl);
     }
 
     private void initInDocTable() {
         inNumInDocCl = new TableColumn<>("ВХ. НОМЕР");
-        inNumInDocCl.setCellValueFactory(new PropertyValueFactory<InDoc, String>("inNum"));
+        inNumInDocCl.setCellValueFactory(new PropertyValueFactory<>("inNum"));
         TableColumn<InDoc, String> currNumInDocCl = new TableColumn<>("НОМЕР");
-        currNumInDocCl.setCellValueFactory(new PropertyValueFactory<InDoc, String>("currNum"));
+        currNumInDocCl.setCellValueFactory(new PropertyValueFactory<>("currNum"));
         TableColumn<InDoc, String> dateInDocCl = new TableColumn<>("ДАТА РЕГ.");
-        dateInDocCl.setCellValueFactory(new PropertyValueFactory<InDoc, String>("dateDc"));
+        dateInDocCl.setCellValueFactory(new PropertyValueFactory<>("dateDc"));
         TableColumn<InDoc, String> descInDocCl = new TableColumn<>("ОПИСАНИЕ");
-        descInDocCl.setCellValueFactory(new PropertyValueFactory<InDoc, String>("descInDoc"));
+        descInDocCl.setCellValueFactory(new PropertyValueFactory<>("descInDoc"));
         inDocTable.getColumns().addAll(currNumInDocCl, dateInDocCl, inNumInDocCl, descInDocCl);
     }
 
@@ -358,6 +354,7 @@ public class OutDocWindow extends AbstrWindow {
             System.out.println(this.outDoc);
             updateData();
             deleteDocBt.setDisable(false);
+            saveBt.setText("Обновить");
         }
         else {
             this.outDoc = new OutDoc(null, null, null, null, null);
@@ -375,12 +372,7 @@ public class OutDocWindow extends AbstrWindow {
     }
 
     private boolean isCreatedDoc() {
-        if (outDoc.getIdOutDoc() == null) {
-            return false;
-        }
-        else {
-            return true;
-        }
+        return outDoc.getIdOutDoc() != null;
     }
 
     private void saveDocument() {
@@ -392,11 +384,11 @@ public class OutDocWindow extends AbstrWindow {
             System.out.println(outDoc);
             if (isCreatedDoc()) {
                 try {
-                    DBControl.OutDoc.update(outDoc);;
+                    DBControl.OutDoc.update(outDoc);
                     abstrWindow.updateData();
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setHeaderText("ИНФОРМАЦИЯ");
-                    alert.setTitle("СОХРАНЕНИЕ ДАННЫХ");
+                    alert.setTitle("ОБНОВЛЕНИЕ ДАННЫХ");
                     alert.setContentText("ДАННЫЕ ОБНОВЛЕНЫ");
                     alert.showAndWait();
                     thisWindowStage.setTitle("ИСХОДЯЩИЙ ДОКУМЕНТ: №" + outDoc.getNumDoc());
@@ -407,6 +399,13 @@ public class OutDocWindow extends AbstrWindow {
             }
             try {
                 int r = DBControl.OutDoc.add(outDoc);
+                if (r == DBControl.DATA_IS_NOT_CREATED) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText("ВНИМАНИЕ");
+                    alert.setTitle("ОШИБКА СОХРАНЕНИЯ");
+                    alert.setContentText("ВО ВРЕМЯ СОХРАНЕНИЯ ПРОИЗОШЛА ОШИБКА: " + DBControl.DATA_IS_NOT_CREATED);
+                    alert.showAndWait();
+                }
                 outDoc = DBControl.OutDoc.getFromID(r);
                 abstrWindow.updateData();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -415,6 +414,7 @@ public class OutDocWindow extends AbstrWindow {
                 alert.setContentText("ДАННЫЕ СОХРАНЕНЫ");
                 alert.showAndWait();
                 thisWindowStage.setTitle("ИСХОДЯЩИЙ ДОКУМЕНТ: №" + outDoc.getNumDoc());
+                saveBt.setText("Обновить");
             } catch (SQLException e) {
                 e.printStackTrace();
             }

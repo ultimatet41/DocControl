@@ -23,13 +23,13 @@ public class PersonWindow extends AbstrWindow{
 
     private void initTable() {
         lNameCl = new TableColumn<>("ФАМИЛИЯ");
-        lNameCl.setCellValueFactory(new PropertyValueFactory<Person, String>("lastName"));
+        lNameCl.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         fNameCl = new TableColumn<>("ИМЯ");
-        fNameCl.setCellValueFactory(new PropertyValueFactory<Person, String>("firstName"));
+        fNameCl.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         patronCl = new TableColumn<>("ОТЧЕСТВО");
-        patronCl.setCellValueFactory(new PropertyValueFactory<Person, String>("patronPers"));
+        patronCl.setCellValueFactory(new PropertyValueFactory<>("patronPers"));
         descCl = new TableColumn<>("ОПИСАНИЕ");
-        descCl.setCellValueFactory(new PropertyValueFactory<Person, String>("descPerson"));
+        descCl.setCellValueFactory(new PropertyValueFactory<>("descPerson"));
         personTable.getColumns().addAll(lNameCl, fNameCl, patronCl, descCl);
     }
 
@@ -143,13 +143,9 @@ public class PersonWindow extends AbstrWindow{
             }
         });
 
-        findBt.setOnAction(event -> {
-            findFormLName();
-        });
+        findBt.setOnAction(event -> findFormLName());
 
-        abortBt.setOnAction(event -> {
-            loadData();
-        });
+        abortBt.setOnAction(event -> loadData());
     }
 
     private void findFormLName() {

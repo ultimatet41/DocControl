@@ -185,7 +185,7 @@ public class DBControl {
         public static data.InDoc getFromID(Integer idIndDoc) throws SQLException {
             String sql = "SELECT * FROM InDoc WHERE idInDoc = " + idIndDoc + ";";
             ResultSet set = connect.createStatement().executeQuery(sql);
-            while (set.next()) {
+            if (set.next()) {
                 Integer idDocIn = set.getInt("idInDoc");
                 String inNum = set.getString("inNum");
                 String currNum = set.getString("currNum");
@@ -217,12 +217,11 @@ public class DBControl {
             int s = param.size();
             if (param.containsKey(ID_ABONENT)) {
                 sql = "SELECT * FROM InDoc i LEFT JOIN AbonentLink al ON al.idDoc = i.idInDoc " +
-                        " WHERE al.idAbonent = " + param.get(ID_ABONENT).toString() + " AND al.typeDoc = 'i'";
+                        " WHERE al.idAbonent = " + param.get(ID_ABONENT) + " AND al.typeDoc = 'i'";
                 if (s > 1) sql += " AND ";
                 else sql += ";";
             }
             else sql = "SELECT * FROM InDoc i WHERE ";
-            //SELECT * FROM indoc i LEFT JOIN AbonentLink al ON al.idAbonent = 61 WHERE al.typeDoc = "i";
             for (HashMap.Entry<String, String> entry : param.entrySet()) {
                 switch (entry.getKey()) {
                     case START_DATE: sql = sql + "i.dateDc >= '" + entry.getValue() + "'";
@@ -332,25 +331,13 @@ public class DBControl {
             return outDocs;
         }
 
-        public static data.OutDoc getFromNumDocAndDate(String numDoc, String dateDc) throws SQLException {
-            String sql = "SELECT * FROM OutDoc WHERE numDoc = '" + numDoc + "' AND dateDc = '" + dateDc + "';";
-            ResultSet set = connect.createStatement().executeQuery(sql);
-            set.next();
-            Integer id = set.getInt("idOutDoc");
-            String numDoc_m = set.getString("numDoc");
-            String date = set.getDate("dateDc").toString();
-            String descOutDoc = set.getString("descOutDoc");
-            String otherData = set.getString("otherData");
-            return new data.OutDoc(id, numDoc_m, date, descOutDoc, otherData);
-        }
-
         public static ArrayList<data.OutDoc> findDocs(HashMap<String, String> param) throws SQLException {
             String sql;
             int s = param.size();
             System.out.println("size: " + s);
             if (param.containsKey(ID_ABONENT)) {
                 sql = "SELECT * FROM OutDoc o LEFT JOIN AbonentLink al ON al.idDoc = o.idOutDoc " +
-                        " WHERE al.idAbonent = " + param.get(ID_ABONENT).toString() + " AND al.typeDoc = 'o'";
+                        " WHERE al.idAbonent = " + param.get(ID_ABONENT) + " AND al.typeDoc = 'o'";
                 if (s > 1) sql += " AND ";
                 else sql += ";";
             }
@@ -409,7 +396,7 @@ public class DBControl {
     public static class Abonent {
         public static Integer add(data.Abonent abonent) throws SQLException {
             String sql = "INSERT INTO Abonent (name, descAbonent) VALUES (?, ?);";
-            PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);;
+            PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, abonent.getNameAbonent());
             statement.setString(2, abonent.getDescAbonent());
             Integer numero = statement.executeUpdate();
@@ -420,16 +407,6 @@ public class DBControl {
             }
             System.out.println(newId);
             return newId;
-        }
-
-        public static boolean isExist(data.Abonent abonent) throws SQLException {
-            String sql = "SELECT * FROM Abonent WHERE name = '" + abonent.getNameAbonent() +
-                    "';";
-            ResultSet set = connect.createStatement().executeQuery(sql);
-            while (set.next()) {
-                return true;
-            }
-            return false;
         }
 
         public static void update(data.Abonent abonent) throws SQLException {
@@ -444,11 +421,13 @@ public class DBControl {
         public static data.Abonent getFromID(Integer idAbonent) throws SQLException {
             String sql = "SELECT * FROM Abonent WHERE idAbonent = " + idAbonent + ";";
             ResultSet set = connect.createStatement().executeQuery(sql);
-            set.next();
-            Integer id = set.getInt("idAbonent");
-            String name = set.getString("name");
-            String descAbonent = set.getString("descAbonent");
-            return new data.Abonent(id, name, descAbonent);
+            if (set.next()) {
+                Integer id = set.getInt("idAbonent");
+                String name = set.getString("name");
+                String descAbonent = set.getString("descAbonent");
+                return new data.Abonent(id, name, descAbonent);
+            }
+            return null;
         }
 
         public static ArrayList<data.Abonent> getAll() throws SQLException {
@@ -481,7 +460,7 @@ public class DBControl {
     public static class Person {
         public static Integer add(data.Person person) throws SQLException {
             String sql = "INSERT INTO Person (fname, lname, patron, descPerson) VALUES (?, ?, ?, ?);";
-            PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);;
+            PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, person.getFirstName());
             statement.setString(2, person.getLastName());
             statement.setString(3, person.getPatronPers());
@@ -494,17 +473,6 @@ public class DBControl {
             }
             System.out.println(newId);
             return newId;
-        }
-
-        public static boolean isExist(data.Person person) throws SQLException {
-            String sql = "SELECT * FROM Person WHERE fname = '" + person.getFirstName() + "' AND " +
-                    "lname = '" + person.getLastName() + "' AND " +
-                    "patron = '" + person.getPatronPers() +"';";
-            ResultSet set = connect.createStatement().executeQuery(sql);
-            while (set.next()) {
-                return true;
-            }
-            return false;
         }
 
         public static void update(data.Person person) throws SQLException {
@@ -521,13 +489,15 @@ public class DBControl {
         public static data.Person getFromID(Integer idPerson) throws SQLException {
             String sql = "SELECT * FROM Person WHERE idPerson = " + idPerson + ";";
             ResultSet set = connect.createStatement().executeQuery(sql);
-            set.next();
-            Integer id = set.getInt("idPerson");
-            String fname = set.getString("fname");
-            String lname = set.getString("lname");
-            String patron = set.getString("patron");
-            String desc = set.getString("descPerson");
-            return new data.Person(id, fname, lname, patron, desc);
+            if (set.next()) {
+                Integer id = set.getInt("idPerson");
+                String fname = set.getString("fname");
+                String lname = set.getString("lname");
+                String patron = set.getString("patron");
+                String desc = set.getString("descPerson");
+                return new data.Person(id, fname, lname, patron, desc);
+            }
+            return null;
         }
 
         public static ArrayList<data.Person> getAll() throws SQLException {
@@ -564,7 +534,7 @@ public class DBControl {
     public static class SysTrf {
         public static Integer add(data.SystemTransfer transfer) throws SQLException {
             String sql = "INSERT INTO SystemTransfer  (name, descSysTrf) VALUES (?, ?);";
-            PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);;
+            PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, transfer.getNameSysTrf());
             statement.setString(2, transfer.getDescSysTrf());
             Integer numero = statement.executeUpdate();
@@ -575,15 +545,6 @@ public class DBControl {
             }
             System.out.println(newId);
             return newId;
-        }
-
-        public static boolean isExist(data.SystemTransfer transfer) throws SQLException {
-            String sql = "SELECT * FROM SystemTransfer  WHERE name = '" + transfer.getNameSysTrf() + "';";
-            ResultSet set = connect.createStatement().executeQuery(sql);
-            while (set.next()) {
-                return true;
-            }
-            return false;
         }
 
         public static void update(SystemTransfer transfer) throws SQLException {
@@ -598,11 +559,13 @@ public class DBControl {
         public static SystemTransfer getFromID(Integer idSystemTransfer) throws SQLException {
             String sql = "SELECT * FROM SystemTransfer WHERE idSysTransfer = " + idSystemTransfer + ";";
             ResultSet set = connect.createStatement().executeQuery(sql);
-            set.next();
-            Integer id = set.getInt("idSysTransfer");
-            String name = set.getString("name");
-            String desc = set.getString("descSysTrf");
-            return new SystemTransfer(id, name, desc);
+            if (set.next()) {
+                Integer id = set.getInt("idSysTransfer");
+                String name = set.getString("name");
+                String desc = set.getString("descSysTrf");
+                return new SystemTransfer(id, name, desc);
+            }
+            return null;
         }
 
         public static ArrayList<SystemTransfer> getAll() throws SQLException {
@@ -623,7 +586,7 @@ public class DBControl {
         public static Integer add(AbstrDoc docOut, AbstrDoc docIn) throws SQLException {
             if (isExist(docOut, docIn)) return DATA_EXIST;
             String sql = "INSERT INTO DocLink (idDocOf, idDocIn, typeDoc, dateDc) VALUES (?, ?, ?, ?);";
-            PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);;
+            PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             if (docOut.getType().equals(AbstrDoc.INDOC)) {
                 data.InDoc  inDoc = (data.InDoc) docOut;
                 data.OutDoc outDoc = (data.OutDoc) docIn;
@@ -670,9 +633,7 @@ public class DBControl {
                         "idDocIn = " + outDoc.getIdOutDoc() + " AND " +
                         "typeDoc = '" + inDoc.getType() +"';";
                 ResultSet set = connect.createStatement().executeQuery(sql);
-                while (set.next()) {
-                    return true;
-                }
+                return set.next();
             }
             else {
                 data.OutDoc outDoc = (data.OutDoc) docOf;
@@ -681,11 +642,8 @@ public class DBControl {
                         "idDocIn = " + inDoc.getIdInDoc() + " AND " +
                         "typeDoc = '" + docOf.getType() +"';";
                 ResultSet set = connect.createStatement().executeQuery(sql);
-                while (set.next()) {
-                    return true;
-                }
+                return set.next();
             }
-            return false;
         }
 
         public static ArrayList<AbstrDoc> getOutDocs(AbstrDoc docOf) throws SQLException {
@@ -761,7 +719,7 @@ public class DBControl {
         public static Integer add(AbstrDoc doc, data.Abonent abonent) throws SQLException {
             if (isExist(doc,abonent)) return DATA_EXIST;
             String sql = "INSERT INTO AbonentLink (idDoc, typeDoc, dateDc, idAbonent) VALUES (?, ?, ?, ?);";
-            PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);;
+            PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             Date dateobj = new java.util.Date();
             if(doc.getType().equals(AbstrDoc.INDOC)) {
@@ -803,9 +761,7 @@ public class DBControl {
                         + " AND typeDoc = '" + inDoc.getType() + "'"
                         + " AND idAbonent = " + abonent.getIdAbonent() + ";";
                 ResultSet set = connect.createStatement().executeQuery(sql);
-                while (set.next()) {
-                    return true;
-                }
+                return set.next();
             }
             else {
                 data.OutDoc outDoc = (data.OutDoc) doc;
@@ -813,11 +769,8 @@ public class DBControl {
                         + " AND typeDoc = '" + outDoc.getType() + "'"
                         + " AND idAbonent = " + abonent.getIdAbonent() + ";";
                 ResultSet set = connect.createStatement().executeQuery(sql);
-                while (set.next()) {
-                    return true;
-                }
+                return set.next();
             }
-            return false;
         }
 
         public static ArrayList<data.Abonent> getOfDoc(AbstrDoc doc) throws SQLException {
@@ -867,7 +820,7 @@ public class DBControl {
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             Date dateobj = new java.util.Date();
             String sql = "INSERT INTO PersonLink (idDoc, typeDoc, dateDc, idPerson) VALUES (?, ?, ?, ?);";
-            PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);;
+            PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             if (doc.getType().equals(AbstrDoc.INDOC)) {
                 data.InDoc inDoc = (data.InDoc) doc;
                 statement.setInt(1, inDoc.getIdInDoc());
@@ -907,9 +860,7 @@ public class DBControl {
                         + " AND typeDoc = '" + inDoc.getType() + "'"
                         + " AND idPerson = " + person.getIdPerson() + ";";
                 ResultSet set = connect.createStatement().executeQuery(sql);
-                while (set.next()) {
-                    return true;
-                }
+                return set.next();
             }
             else {
                 data.OutDoc outDoc = (data.OutDoc) doc;
@@ -917,11 +868,8 @@ public class DBControl {
                         + " AND typeDoc = '" + outDoc.getType() + "'"
                         + " AND idPerson = " + person.getIdPerson() + ";";
                 ResultSet set = connect.createStatement().executeQuery(sql);
-                while (set.next()) {
-                    return true;
-                }
+                return set.next();
             }
-            return false;
         }
 
         public static ArrayList<data.Person> getOfDoc(AbstrDoc doc) throws SQLException {
@@ -973,7 +921,7 @@ public class DBControl {
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             Date dateobj = new java.util.Date();
             String sql = "INSERT INTO SysTrfLink (idDoc, typeDoc, dateDc, idSysTrf) VALUES (?, ?, ?, ?);";
-            PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);;
+            PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             if (doc.getType().equals(AbstrDoc.INDOC)) {
                 data.InDoc inDoc = (data.InDoc) doc;
                 statement.setInt(1, inDoc.getIdInDoc());
@@ -1013,9 +961,7 @@ public class DBControl {
                         + " AND typeDoc = '" + inDoc.getType() +"'"
                         + " AND idSysTrf = " + transfer.getIdSysTransfer() +";";
                 ResultSet set = connect.createStatement().executeQuery(sql);
-                while (set.next()) {
-                    return true;
-                }
+                return set.next();
             }
             else {
                 data.OutDoc outDoc = (data.OutDoc) doc;
@@ -1023,11 +969,8 @@ public class DBControl {
                         + " AND typeDoc = '" + outDoc.getType() +"'"
                         + " AND idSysTrf = " + transfer.getIdSysTransfer() +";";
                 ResultSet set = connect.createStatement().executeQuery(sql);
-                while (set.next()) {
-                    return true;
-                }
+                return set.next();
             }
-            return false;
         }
 
         public static ArrayList<SystemTransfer> getOfDoc(AbstrDoc doc) throws SQLException {

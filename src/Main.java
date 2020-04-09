@@ -6,18 +6,18 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import windows.MainWindow.MainWindow;
 
+import java.util.Objects;
+
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        //setUserAgentStylesheet(STYLESHEET_);
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("windows/MainWindow/MainWindow.fxml"));
         Parent root = loader.load();
         MainWindow window = loader.getController();
         primaryStage.setTitle("Журнал регистрации");
         primaryStage.setScene(new Scene(root, 1000, 600));
-        primaryStage.getIcons().add(new Image(getClass().getClassLoader().getResourceAsStream("icon.png")));
-//        primaryStage.getScene().getStylesheets().add(getClass().getResource("bootstrap3.css").toString());
+        primaryStage.getIcons().add(new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("icon.png"))));
         window.setStage(primaryStage);
         primaryStage.show();
     }

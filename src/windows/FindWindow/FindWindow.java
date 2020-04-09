@@ -5,8 +5,6 @@ import data.InDoc;
 import data.OutDoc;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -53,23 +51,23 @@ public class FindWindow extends AbstrWindow {
 
     private void initInDocTable() {
         inNumInDocCl = new TableColumn<>("ВХ. НОМЕР");
-        inNumInDocCl.setCellValueFactory(new PropertyValueFactory<InDoc, String>("inNum"));
+        inNumInDocCl.setCellValueFactory(new PropertyValueFactory<>("inNum"));
         TableColumn<InDoc, String> currNumInDocCl = new TableColumn<>("НОМЕР");
-        currNumInDocCl.setCellValueFactory(new PropertyValueFactory<InDoc, String>("currNum"));
+        currNumInDocCl.setCellValueFactory(new PropertyValueFactory<>("currNum"));
         TableColumn<InDoc, String> dateInDocCl = new TableColumn<>("ДАТА РЕГ.");
-        dateInDocCl.setCellValueFactory(new PropertyValueFactory<InDoc, String>("dateDc"));
+        dateInDocCl.setCellValueFactory(new PropertyValueFactory<>("dateDc"));
         TableColumn<InDoc, String> descInDocCl = new TableColumn<>("ОПИСАНИЕ");
-        descInDocCl.setCellValueFactory(new PropertyValueFactory<InDoc, String>("descInDoc"));
+        descInDocCl.setCellValueFactory(new PropertyValueFactory<>("descInDoc"));
         inDocTable.getColumns().addAll(currNumInDocCl, dateInDocCl, inNumInDocCl, descInDocCl);
     }
 
     private void initOutDocTable() {
         numOutDocCl = new TableColumn<>("НОМЕР");
-        numOutDocCl.setCellValueFactory(new PropertyValueFactory<OutDoc, String>("numDoc"));
+        numOutDocCl.setCellValueFactory(new PropertyValueFactory<>("numDoc"));
         dateOutDocCl = new TableColumn<>("ДАТА РЕГ.");
-        dateOutDocCl.setCellValueFactory(new PropertyValueFactory<OutDoc, String>("dateDc"));
+        dateOutDocCl.setCellValueFactory(new PropertyValueFactory<>("dateDc"));
         descOutDocCL = new TableColumn<>("ОПИСАНИЕ");
-        descOutDocCL.setCellValueFactory(new PropertyValueFactory<OutDoc, String>("descOutDoc"));
+        descOutDocCL.setCellValueFactory(new PropertyValueFactory<>("descOutDoc"));
         outDocTable.getColumns().addAll(numOutDocCl, dateOutDocCl, descOutDocCL);
     }
 
@@ -78,7 +76,7 @@ public class FindWindow extends AbstrWindow {
             if (abstrDoc.getType().equals(AbstrDoc.INDOC)) {
                 outDocData.clear();
                 if (!dateStart.getValue().toString().isEmpty() && !dateEnd.getValue().toString().isEmpty()) {
-                    if(dateEnd.getValue().compareTo(dateStart.getValue()) == -1) {
+                    if (dateEnd.getValue().compareTo(dateStart.getValue()) < 0) {
                         Alert alert = new Alert(Alert.AlertType.WARNING);
                         alert.setHeaderText("ВНИМАНИЕ");
                         alert.setTitle("ОШИБКА ДАТЫ");
@@ -98,7 +96,7 @@ public class FindWindow extends AbstrWindow {
 
                 inDocData.clear();
                 if (!dateStart.getValue().toString().isEmpty() && !dateEnd.getValue().toString().isEmpty()) {
-                    if (dateEnd.getValue().compareTo(dateStart.getValue()) == -1) {
+                    if (dateEnd.getValue().compareTo(dateStart.getValue()) < 0) {
                         Alert alert = new Alert(Alert.AlertType.WARNING);
                         alert.setHeaderText("ВНИМАНИЕ");
                         alert.setTitle("ОШИБКА ДАТЫ");
@@ -120,9 +118,7 @@ public class FindWindow extends AbstrWindow {
     }
 
     private void connectActions() {
-        findBt.setOnAction(event -> {
-            loadData();
-        });
+        findBt.setOnAction(event -> loadData());
 
         outDocTable.setRowFactory(param -> {
             TableRow<OutDoc> row = new TableRow<>();
@@ -163,33 +159,29 @@ public class FindWindow extends AbstrWindow {
             return row;
         });
 
-        selBt.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (abstrDoc.getType().equals(AbstrDoc.INDOC)) {
-                    data.OutDoc outDoc = outDocTable.getSelectionModel().getSelectedItem();
-                    if (abstrDoc != null) {
-                        try {
-                            DBControl.DocLink.add(abstrDoc, outDoc);
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                        abstrWindow.updateData();
-                        thisWindowStage.hide();
+        selBt.setOnAction(event -> {
+            if (abstrDoc.getType().equals(AbstrDoc.INDOC)) {
+                OutDoc outDoc = outDocTable.getSelectionModel().getSelectedItem();
+                if (abstrDoc != null) {
+                    try {
+                        DBControl.DocLink.add(abstrDoc, outDoc);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
                     }
+                    abstrWindow.updateData();
+                    thisWindowStage.hide();
                 }
-                else {
-                    data.InDoc inDoc = inDocTable.getSelectionModel().getSelectedItem();
-                    if (abstrDoc != null) {
-                        try {
-                            DBControl.DocLink.add(inDoc, abstrDoc);
-                            abstrWindow.updateData();
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
+            } else {
+                InDoc inDoc = inDocTable.getSelectionModel().getSelectedItem();
+                if (abstrDoc != null) {
+                    try {
+                        DBControl.DocLink.add(inDoc, abstrDoc);
                         abstrWindow.updateData();
-                        thisWindowStage.hide();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
                     }
+                    abstrWindow.updateData();
+                    thisWindowStage.hide();
                 }
             }
         });

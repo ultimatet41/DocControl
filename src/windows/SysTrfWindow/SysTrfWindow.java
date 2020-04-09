@@ -25,9 +25,9 @@ public class SysTrfWindow extends AbstrWindow{
 
     private void initTable() {
         nameCl = new TableColumn<>("НАИМЕНОВАНИЕ");
-        nameCl.setCellValueFactory(new PropertyValueFactory<SystemTransfer, String>("nameSysTrf"));
+        nameCl.setCellValueFactory(new PropertyValueFactory<>("nameSysTrf"));
         descCl = new TableColumn<>("ОПИСАНИЕ");
-        descCl.setCellValueFactory(new PropertyValueFactory<SystemTransfer, String>("descSysTrf"));
+        descCl.setCellValueFactory(new PropertyValueFactory<>("descSysTrf"));
         sysTrfTable.getColumns().addAll(nameCl, descCl);
     }
 
