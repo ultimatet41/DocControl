@@ -16,7 +16,9 @@ public class Main extends Application {
         Parent root = loader.load();
         MainWindow window = loader.getController();
         primaryStage.setTitle("Журнал регистрации");
-        primaryStage.setScene(new Scene(root, 1000, 600));
+        Scene scene = new Scene(root, 1000, 600);
+        scene.getStylesheets().add(getClass().getClassLoader().getResource("resources/bootstrap2.css").toExternalForm());
+        primaryStage.setScene(scene);
         primaryStage.getIcons().add(new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("icon.png"))));
         window.setStage(primaryStage);
         primaryStage.show();

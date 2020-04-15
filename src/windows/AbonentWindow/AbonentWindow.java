@@ -55,6 +55,9 @@ public class AbonentWindow extends AbstrWindow {
             }
             else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
+                Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(thisWindowStage.getIcons().get(0));
+                stage.getScene().getStylesheets().add(thisWindowStage.getScene().getStylesheets().get(0));
                 alert.setHeaderText("ВНИМАНИЕ");
                 alert.setTitle("ОШИБКА ДАННЫХ");
                 alert.setContentText("ПОЛЕ \"НАИМЕНОВАНИЕ НЕ ЗАПОЛНЕНО\"");
@@ -88,6 +91,9 @@ public class AbonentWindow extends AbstrWindow {
 
         editBt.setOnAction(event -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(thisWindowStage.getIcons().get(0));
+            stage.getScene().getStylesheets().add(thisWindowStage.getScene().getStylesheets().get(0));
             alert.setHeaderText("ЗАПРОС");
             alert.setTitle("ПОДТВЕРЖДЕНИЕ ИЗМЕНЕНИЯ ДАННЫХ");
             alert.setContentText("ВЫ ДЕЙСТВИТЕЛЬНО ХОТИТЕ ИЗМЕНИТЬ ДАННЫЕ?" +
@@ -124,6 +130,9 @@ public class AbonentWindow extends AbstrWindow {
             }
             else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
+                Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(thisWindowStage.getIcons().get(0));
+                stage.getScene().getStylesheets().add(thisWindowStage.getScene().getStylesheets().get(0));
                 alert.setHeaderText("ВНИМАНИЕ");
                 alert.setTitle("ОШИБКА ДАННЫХ");
                 alert.setContentText("НЕ ВЫБРАНА ЗАПИСЬ");
@@ -131,15 +140,25 @@ public class AbonentWindow extends AbstrWindow {
             }
         });
 
-        findBt.setOnAction(event -> {
-            if (!findTxt.getText().isEmpty()) {
+//        findBt.setOnAction(event -> {
+//            if (!findTxt.getText().isEmpty()) {
+//                abonentData.clear();
+//                try {
+//                    abonentData.addAll(DBControl.Abonent.findForName(findTxt.getText()));
+//                    abonentTable.setItems(abonentData);
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+
+        findTxt.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
                 abonentData.clear();
-                try {
-                    abonentData.addAll(DBControl.Abonent.findForName(findTxt.getText()));
-                    abonentTable.setItems(abonentData);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                abonentData.addAll(DBControl.Abonent.findForName(findTxt.getText()));
+                abonentTable.setItems(abonentData);
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         });
 
@@ -198,8 +217,8 @@ public class AbonentWindow extends AbstrWindow {
 
     @FXML
     private TextField findTxt;
-    @FXML
-    private Button findBt;
+    //    @FXML
+//    private Button findBt;
     @FXML
     private Button abortBt;
 

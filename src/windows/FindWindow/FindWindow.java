@@ -78,6 +78,9 @@ public class FindWindow extends AbstrWindow {
                 if (!dateStart.getValue().toString().isEmpty() && !dateEnd.getValue().toString().isEmpty()) {
                     if (dateEnd.getValue().compareTo(dateStart.getValue()) < 0) {
                         Alert alert = new Alert(Alert.AlertType.WARNING);
+                        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                        stage.getIcons().add(thisWindowStage.getIcons().get(0));
+                        stage.getScene().getStylesheets().add(thisWindowStage.getScene().getStylesheets().get(0));
                         alert.setHeaderText("ВНИМАНИЕ");
                         alert.setTitle("ОШИБКА ДАТЫ");
                         alert.setContentText("Начальная дата не может быть больше конечной!");
@@ -98,6 +101,9 @@ public class FindWindow extends AbstrWindow {
                 if (!dateStart.getValue().toString().isEmpty() && !dateEnd.getValue().toString().isEmpty()) {
                     if (dateEnd.getValue().compareTo(dateStart.getValue()) < 0) {
                         Alert alert = new Alert(Alert.AlertType.WARNING);
+                        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                        stage.getIcons().add(thisWindowStage.getIcons().get(0));
+                        stage.getScene().getStylesheets().add(thisWindowStage.getScene().getStylesheets().get(0));
                         alert.setHeaderText("ВНИМАНИЕ");
                         alert.setTitle("ОШИБКА ДАТЫ");
                         alert.setContentText("Начальная дата не может быть больше конечной!");
@@ -118,7 +124,8 @@ public class FindWindow extends AbstrWindow {
     }
 
     private void connectActions() {
-        findBt.setOnAction(event -> loadData());
+//        findBt.setOnAction(event -> loadData());
+        regNumTxt.textProperty().addListener((observable, oldValue, newValue) -> loadData());
 
         outDocTable.setRowFactory(param -> {
             TableRow<OutDoc> row = new TableRow<>();
@@ -186,6 +193,9 @@ public class FindWindow extends AbstrWindow {
             }
         });
 
+        dateStart.valueProperty().addListener((observable, oldValue, newValue) -> loadData());
+
+        dateEnd.valueProperty().addListener((observable, oldValue, newValue) -> loadData());
         closeBt.setOnAction(event -> thisWindowStage.hide());
     }
 
@@ -237,8 +247,8 @@ public class FindWindow extends AbstrWindow {
     private DatePicker dateStart;
     @FXML
     private DatePicker dateEnd;
-    @FXML
-    private Button findBt;
+    //    @FXML
+//    private Button findBt;
     @FXML
     private VBox vboxPn;
     @FXML

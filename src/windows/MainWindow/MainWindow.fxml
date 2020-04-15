@@ -3,7 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane prefHeight="617.0" prefWidth="1406.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="windows.MainWindow.MainWindow">
+<AnchorPane prefHeight="617.0" prefWidth="1406.0" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="windows.MainWindow.MainWindow">
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -44,7 +45,6 @@
                         <Font name="System Bold" size="15.0" />
                      </font></Label>
                   <DatePicker fx:id="endDate" />
-                <Button fx:id="setDateBt" mnemonicParsing="false" text="Применить период" />
                   <Button fx:id="createRepoBt" mnemonicParsing="false" text="Создать отчет" />
                   <Separator prefHeight="30.0" prefWidth="14.0" />
                   <Button fx:id="inDocAddBt" mnemonicParsing="false" text="Входящая" />
@@ -113,11 +113,13 @@
                      </children>
                   </VBox>
                   <Separator orientation="VERTICAL" prefHeight="200.0" prefWidth="11.0" />
-                  <VBox alignment="CENTER" prefHeight="70.0" prefWidth="83.0">
+                   <VBox alignment="CENTER" maxWidth="200.0" prefHeight="70.0" prefWidth="83.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button fx:id="findBt" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Найти" VBox.vgrow="ALWAYS" />
+                         <Button fx:id="findBt" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                 mnemonicParsing="false" text="Найти" VBox.vgrow="ALWAYS"/>
                         <Separator prefWidth="200.0" />
-                        <Button fx:id="clearFindBt" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Сбросить" />
+                         <Button fx:id="clearFindBt" maxHeight="1.7976931348623157E308"
+                                 maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Сбросить"/>
                      </children>
                   </VBox>
                </children>

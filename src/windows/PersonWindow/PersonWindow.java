@@ -61,6 +61,9 @@ public class PersonWindow extends AbstrWindow{
             }
             else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
+                Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(thisWindowStage.getIcons().get(0));
+                stage.getScene().getStylesheets().add(thisWindowStage.getScene().getStylesheets().get(0));
                 alert.setHeaderText("ВНИМАНИЕ");
                 alert.setTitle("ОШИБКА ДАННЫХ");
                 alert.setContentText("ПРОВЕРЬТЕ ПОЛЯ \"ФАМИЛИЯ\" \"ИМЯ\"");
@@ -96,6 +99,9 @@ public class PersonWindow extends AbstrWindow{
 
         editBt.setOnAction(event -> {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(thisWindowStage.getIcons().get(0));
+            stage.getScene().getStylesheets().add(thisWindowStage.getScene().getStylesheets().get(0));
             alert.setHeaderText("ЗАПРОС");
             alert.setTitle("ПОДТВЕРЖДЕНИЕ ИЗМЕНЕНИЯ ДАННЫХ");
             alert.setContentText("ВЫ ДЕЙСТВИТЕЛЬНО ХОТИТЕ ИЗМЕНИТЬ ДАННЫЕ?" +
@@ -136,6 +142,9 @@ public class PersonWindow extends AbstrWindow{
             }
             else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
+                Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(thisWindowStage.getIcons().get(0));
+                stage.getScene().getStylesheets().add(thisWindowStage.getScene().getStylesheets().get(0));
                 alert.setHeaderText("ВНИМАНИЕ");
                 alert.setTitle("ОШИБКА ДАННЫХ");
                 alert.setContentText("НЕ ВЫБРАНА ЗАПИСЬ");
@@ -143,7 +152,8 @@ public class PersonWindow extends AbstrWindow{
             }
         });
 
-        findBt.setOnAction(event -> findFormLName());
+//        findBt.setOnAction(event -> findFormLName());
+        fLNameTxt.textProperty().addListener((observable, oldValue, newValue) -> findFormLName());
 
         abortBt.setOnAction(event -> loadData());
     }
@@ -216,8 +226,8 @@ public class PersonWindow extends AbstrWindow{
 
     @FXML
     private TextField fLNameTxt;
-    @FXML
-    private Button findBt;
+    //    @FXML
+//    private Button findBt;
     @FXML
     private Button abortBt;
 

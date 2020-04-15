@@ -52,20 +52,67 @@ public class MainWindow extends AbstrWindow {
         fInDoc.setToggleGroup(group);
         fInDoc.setSelected(true);
         fOutDoc.setToggleGroup(group);
+        addImageOnButton();
+        fDescTxt.setWrapText(true);
+        fOtherDataTxt.setWrapText(true);
+        ComboBoxAutoComplid.autoCompleteComboBoxPlus(fAbonentBox, (typedText, objectToCompare) -> objectToCompare.getNameAbonent().toLowerCase().contains(typedText.toLowerCase()));
+    }
+
+    private void addImageOnButton() {
         Image image = new Image(this.getClass().getResourceAsStream("add.png"));
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(30);
         imageView.setFitHeight(30);
         imageView.setPreserveRatio(true);
         inDocAddBt.setGraphic(imageView);
+
         ImageView imageView1 = new ImageView(image);
         imageView1.setFitWidth(30);
         imageView1.setFitHeight(30);
         imageView1.setPreserveRatio(true);
         outDocAddBt.setGraphic(imageView1);
-        fDescTxt.setWrapText(true);
-        fOtherDataTxt.setWrapText(true);
-        ComboBoxAutoComplid.autoCompleteComboBoxPlus(fAbonentBox, (typedText, objectToCompare) -> objectToCompare.getNameAbonent().toLowerCase().contains(typedText.toLowerCase()));
+
+        Image findImg = new Image(this.getClass().getResourceAsStream("find.png"));
+        ImageView findIV = new ImageView(findImg);
+        findIV.setFitWidth(30);
+        findIV.setFitHeight(30);
+        findIV.setPreserveRatio(true);
+        findBt.setGraphic(findIV);
+
+        Image clearImg = new Image(this.getClass().getResourceAsStream("clear.png"));
+        ImageView clearIV = new ImageView(clearImg);
+        clearIV.setFitWidth(30);
+        clearIV.setFitHeight(30);
+        clearIV.setPreserveRatio(true);
+        clearFindBt.setGraphic(clearIV);
+
+        Image repoImg = new Image(this.getClass().getResourceAsStream("repo.png"));
+        ImageView repoIV = new ImageView(repoImg);
+        repoIV.setFitWidth(30);
+        repoIV.setFitHeight(30);
+        repoIV.setPreserveRatio(true);
+        createRepoBt.setGraphic(repoIV);
+
+//        Image calendImg = new Image(this.getClass().getResourceAsStream("calendar.png"));
+//        ImageView calendIV = new ImageView(calendImg);
+//        calendIV.setFitWidth(30);
+//        calendIV.setFitHeight(30);
+//        calendIV.setPreserveRatio(true);
+//        setDateBt.setGraphic(calendIV);
+
+        Image indImg = new Image(this.getClass().getResourceAsStream("in.png"));
+        ImageView inIV = new ImageView(indImg);
+        inIV.setFitWidth(30);
+        inIV.setFitHeight(30);
+        inIV.setPreserveRatio(true);
+        fInDoc.setGraphic(inIV);
+
+        Image outImg = new Image(this.getClass().getResourceAsStream("out.png"));
+        ImageView outIV = new ImageView(outImg);
+        outIV.setFitWidth(30);
+        outIV.setFitHeight(30);
+        outIV.setPreserveRatio(true);
+        fOutDoc.setGraphic(outIV);
     }
 
     private void initContextMenu() {
@@ -102,11 +149,8 @@ public class MainWindow extends AbstrWindow {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText("ВНИМАНИЕ");
-            alert.setTitle("ОШИБКА ПОДКЛЮЧЕНИЯ");
-            alert.setContentText("НЕ ВОЗМОЖНО ПОДКЛЮЧИТСЯ К БД. ПРОВЕРЬТЕ НАСТРОЙКИ ПОДКЛЮЧЕНИЯ");
-            alert.showAndWait();
+            showAlert("ВНИМАНИЕ", "ОШИБКА ПОДКЛЮЧЕНИЯ",
+                    "НЕ ВОЗМОЖНО ПОДКЛЮЧИТСЯ К БД. ПРОВЕРЬТЕ НАСТРОЙКИ ПОДКЛЮЧЕНИЯ", Alert.AlertType.WARNING);
             settingsWindow.getStage().showAndWait();
             connectDB();
         }
@@ -139,7 +183,11 @@ public class MainWindow extends AbstrWindow {
     private void connectActions() {
         addItemInDoc.setOnAction(event -> addNewInDoc());
 
-        setDateBt.setOnAction(event -> loadDataInTables());
+//        setDateBt.setOnAction(event -> loadDataInTables());
+
+        startDate.valueProperty().addListener((observable, oldValue, newValue) -> loadDataInTables());
+
+        endDate.valueProperty().addListener((observable, oldValue, newValue) -> loadDataInTables());
 
         inDocTable.setRowFactory(new Callback<TableView<InDocMW>, TableRow<InDocMW>>() {
             @Override
@@ -157,7 +205,9 @@ public class MainWindow extends AbstrWindow {
                             inDocWindow.setAbstrWindow(MainWindow.this);
                             Stage stage = new Stage();
                             stage.setTitle("ВХОДЯЩИЙ ДОКУМЕНТ: №" + doc.getCurrNum());
-                            stage.setScene(new Scene(root, 800, 700));
+                            Scene scene = new Scene(root, 800, 700);
+                            scene.getStylesheets().add(thisStage.getScene().getStylesheets().get(0));
+                            stage.setScene(scene);
                             stage.getIcons().add(thisStage.getIcons().get(0));
                             inDocWindow.setStage(stage);
                             stage.show();
@@ -187,7 +237,9 @@ public class MainWindow extends AbstrWindow {
                             outDocWindow.setAbstrWindow(MainWindow.this);
                             Stage stage = new Stage();
                             stage.setTitle("ИСХОДЯЩИЙ ДОКУМЕНТ: №" + doc.getNumDoc());
-                            stage.setScene(new Scene(root, 800, 700));
+                            Scene scene = new Scene(root, 800, 700);
+                            scene.getStylesheets().add(thisStage.getScene().getStylesheets().get(0));
+                            stage.setScene(scene);
                             stage.getIcons().add(thisStage.getIcons().get(0));
                             outDocWindow.setStage(stage);
                             stage.show();
@@ -210,7 +262,9 @@ public class MainWindow extends AbstrWindow {
                 outDocWindow.setAbstrWindow(MainWindow.this);
                 Stage stage = new Stage();
                 stage.setTitle("НОВЫЙ ИСХОДЯЩИЙ ДОКУМЕНТ");
-                stage.setScene(new Scene(root, 800, 700));
+                Scene scene = new Scene(root, 800, 700);
+                scene.getStylesheets().add(thisStage.getScene().getStylesheets().get(0));
+                stage.setScene(scene);
                 stage.getIcons().add(thisStage.getIcons().get(0));
                 outDocWindow.setStage(stage);
                 stage.show();
@@ -244,13 +298,9 @@ public class MainWindow extends AbstrWindow {
         });
 
         aboutItemMenu.setOnAction(event -> {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-            stage.getIcons().add(thisStage.getIcons().get(0));
-            alert.setHeaderText("ИНФОРМАЦИЯ");
-            alert.setTitle("О ПРОГРАММЕ. ВЕРСИЯ 1.5а");
-            alert.setContentText("РАЗРАБОТАНО СПЕЦИАЛЬНО ДЛЯ АДМИНИСТРАЦИИ МР \"СПАС-ДЕМЕНСКИЙ РАЙОН\". КОНОВАЛОВ К.В.");
-            alert.showAndWait();
+            showAlert("ИНФОРМАЦИЯ", "О ПРОГРАММЕ. ВЕРСИЯ 1.6b",
+                    "РАЗРАБОТАНО СПЕЦИАЛЬНО ДЛЯ АДМИНИСТРАЦИИ МР \"СПАС-ДЕМЕНСКИЙ РАЙОН\". КОНОВАЛОВ К.В.",
+                    Alert.AlertType.INFORMATION);
         });
 
         createRepoBt.setOnAction(event -> {
@@ -263,11 +313,7 @@ public class MainWindow extends AbstrWindow {
                             selDir + File.separator + "Входящие.xls");
                     OutDocReport.createReport(DBControl.OutDoc.getFromDate(startDate.getValue().toString(), endDate.getValue().toString()),
                             selDir + File.separator + "Исходящие.xls");
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("ОТЧЕТ");
-                    alert.setHeaderText("ИНФОРМАЦИЯ");
-                    alert.setContentText("ОТЧЕТЫ СФОРМИРОВАННЫ");
-                    alert.showAndWait();
+                    showAlert("ОТЧЕТ", "ИНФОРМАЦИЯ", "ОТЧЕТЫ СФОРМИРОВАННЫ", Alert.AlertType.INFORMATION);
                     try {
                         Desktop.getDesktop().open(selDir);
                     } catch (IOException e) {
@@ -300,26 +346,15 @@ public class MainWindow extends AbstrWindow {
                             e.printStackTrace();
                         }
                         if (new File(fullFileName).exists()) {
-                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                            alert.setTitle("ОТЧЕТ");
-                            alert.setHeaderText("ИНФОРМАЦИЯ");
-                            alert.setContentText("РЕЗЕРВНАЯ КОПИЯ СОЗДАНА: (" + fullFileName + ")");
-                            alert.showAndWait();
+                            showAlert("ОТЧЕТ", "ИНФОРМАЦИЯ", "РЕЗЕРВНАЯ КОПИЯ СОЗДАНА: (" + fullFileName + ")",
+                                    Alert.AlertType.INFORMATION);
                         } else {
-                            Alert alert = new Alert(Alert.AlertType.WARNING);
-                            alert.setTitle("ОТЧЕТ");
-                            alert.setHeaderText("ПРЕДУПРЕЖДЕНИЕ");
-                            alert.setContentText("РЕЗЕРВНАЯ КОПИЯ НЕ СОЗДАНА!");
-                            alert.showAndWait();
+                            showAlert("ОТЧЕТ", "ПРЕДУПРЕЖДЕНИЕ", "РЕЗЕРВНАЯ КОПИЯ НЕ СОЗДАНА!", Alert.AlertType.WARNING);
                             }
                         });
                 }
                 else {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("ОТЧЕТ");
-                    alert.setHeaderText("ИНФОРМАЦИЯ");
-                    alert.setContentText("НЕ ДОСТАТОЧНО ПАРАМЕТРОВ!");
-                    alert.showAndWait();
+                    showAlert("ОТЧЕТ", "ИНФОРМАЦИЯ", "НЕ ДОСТАТОЧНО ПАРАМЕТРОВ!", Alert.AlertType.INFORMATION);
                 }
             }
         });
@@ -335,7 +370,9 @@ public class MainWindow extends AbstrWindow {
             inDocWindow.setAbstrWindow(MainWindow.this);
             Stage stage = new Stage();
             stage.setTitle("НОВЫЙ ВХОДЯЩИЙ ДОКУМЕНТ");
-            stage.setScene(new Scene(root, 800, 700));
+            Scene scene = new Scene(root, 800, 700);
+            scene.getStylesheets().add(thisStage.getScene().getStylesheets().get(0));
+            stage.setScene(scene);
             stage.getIcons().add(thisStage.getIcons().get(0));
             inDocWindow.setStage(stage);
             stage.show();
@@ -350,11 +387,8 @@ public class MainWindow extends AbstrWindow {
             if ((fStartDatePk.getValue() != null && !fStartDatePk.getValue().toString().isEmpty()) &&
                     (fEndDatePk.getValue() != null && !fEndDatePk.getValue().toString().isEmpty())) {
                 if (fEndDatePk.getValue().compareTo(fStartDatePk.getValue()) < 0) {
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setHeaderText("ВНИМАНИЕ!");
-                    alert.setTitle("ОШИБКА ДАТЫ");
-                    alert.setContentText("Начальная дата не может быть больше конечной!");
-                    alert.showAndWait();
+                    showAlert("ВНИМАНИЕ!", "ОШИБКА ДАТЫ", "Начальная дата не может быть больше конечной!",
+                            Alert.AlertType.WARNING);
                     return;
                 }
                 param.put(DBControl.START_DATE, fStartDatePk.getValue().toString());
@@ -381,11 +415,7 @@ public class MainWindow extends AbstrWindow {
             }
             try {
                 if (param.size() == 0) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("ПОИСК");
-                    alert.setHeaderText("ИНФОРМАЦИЯ");
-                    alert.setContentText("НЕ ВЫБРАН ПАРАМЕТР ПОИСКА");
-                    alert.showAndWait();
+                    showAlert("ПОИСК", "ИНФОРМАЦИЯ", "НЕ ВЫБРАН ПАРАМЕТР ПОИСКА", Alert.AlertType.INFORMATION);
                     return;
                 }
                 dataInDoc.clear();
@@ -399,11 +429,8 @@ public class MainWindow extends AbstrWindow {
             if ((fStartDatePk.getValue() != null && !fStartDatePk.getValue().toString().isEmpty()) &&
                     (fEndDatePk.getValue() != null && !fEndDatePk.getValue().toString().isEmpty())) {
                 if (fEndDatePk.getValue().compareTo(fStartDatePk.getValue()) < 0) {
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setHeaderText("ВНИМАНИЕ");
-                    alert.setTitle("ОШИБКА ДАТЫ");
-                    alert.setContentText("Начальная дата не может быть больше конечной!");
-                    alert.showAndWait();
+                    showAlert("ВНИМАНИЕ", "ОШИБКА ДАТЫ", "Начальная дата не может быть больше конечной!",
+                            Alert.AlertType.WARNING);
                     return;
                 }
                 param.put(DBControl.START_DATE, fStartDatePk.getValue().toString());
@@ -427,11 +454,7 @@ public class MainWindow extends AbstrWindow {
             }
             try {
                 if (param.size() == 0) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("ПОИСК");
-                    alert.setHeaderText("ИНФОРМАЦИЯ");
-                    alert.setContentText("НЕ ВЫБРАН ПАРАМЕТР ПОИСКА");
-                    alert.showAndWait();
+                    showAlert("ПОИСК", "ИНФОРМАЦИЯ", "НЕ ВЫБРАН ПАРАМЕТР ПОИСКА", Alert.AlertType.INFORMATION);
                     return;
                 }
                 dataOutDoc.clear();
@@ -446,11 +469,8 @@ public class MainWindow extends AbstrWindow {
 
     private void loadDataInTables() {
         if (endDate.getValue().compareTo(startDate.getValue()) < 0) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText("ВНИМАНИЕ");
-            alert.setTitle("ОШИБКА ДАТЫ");
-            alert.setContentText("Начальная дата не может быть больше конечной!");
-            alert.showAndWait();
+            showAlert("ВНИМАНИЕ", "ОШИБКА ДАТЫ", "Начальная дата не может быть больше конечной!",
+                    Alert.AlertType.WARNING);
             return;
         }
         String start = startDate.getValue().toString();
@@ -473,12 +493,22 @@ public class MainWindow extends AbstrWindow {
         }
     }
 
+
     @Override
     public void updateData() {
         loadDataInTables();
     }
 
-    @Override
+    private void showAlert(String headText, String titleText, String contentText, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(thisStage.getIcons().get(0));
+        stage.getScene().getStylesheets().add(thisStage.getScene().getStylesheets().get(0));
+        alert.setHeaderText(headText);
+        alert.setTitle(titleText);
+        alert.setContentText(contentText);
+        alert.showAndWait();
+    }
     public void setData(AbstrDoc abstrDoc) {
 
     } //not use
@@ -519,7 +549,9 @@ public class MainWindow extends AbstrWindow {
                 settingsWindow.setAbstrWindow(MainWindow.this);
                 Stage stage = new Stage();
                 stage.setTitle("НАСТРОЙКИ");
-                stage.setScene(new Scene(root, 800, 300));
+                Scene scene = new Scene(root, 800, 200);
+                scene.getStylesheets().add(getClass().getClassLoader().getResource("resources/bootstrap2.css").toExternalForm());
+                stage.setScene(scene);
                 settingsWindow.setStage(stage);
                 if (settingsWindow.getNameDB().isEmpty()) {
                     stage.showAndWait();
@@ -541,8 +573,8 @@ public class MainWindow extends AbstrWindow {
     @FXML
     private DatePicker endDate;
 
-    @FXML
-    private Button setDateBt;
+//    @FXML
+//    private Button setDateBt;
 
     @FXML
     private  Button inDocAddBt;

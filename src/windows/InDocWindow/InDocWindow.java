@@ -120,11 +120,7 @@ public class InDocWindow extends AbstrWindow {
     private void connectActions() {
         addAbonentBt.setOnAction(event -> {
             if (!isCreatedDoc()) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setHeaderText("ВНИМАНИЕ");
-                alert.setTitle("ОШИБКА ДАННЫХ");
-                alert.setContentText("СНАЧАЛА НУЖНО СОХРАНИТЬ ДОКУМЕНТ");
-                alert.showAndWait();
+                showAlert("ВНИМАНИЕ", "ОШИБКА ДАННЫХ", "СНАЧАЛА НУЖНО СОХРАНИТЬ ДОКУМЕНТ", Alert.AlertType.WARNING);
                 return;
             }
             Parent root;
@@ -136,7 +132,10 @@ public class InDocWindow extends AbstrWindow {
                 abonentWindow.setData(inDoc);
                 Stage stage = new Stage();
                 stage.setTitle("АБОНЕНТЫ");
-                stage.setScene(new Scene(root, 800, 600));
+                Scene scene = new Scene(root, 800, 700);
+                scene.getStylesheets().add(thisWindowStage.getScene().getStylesheets().get(0));
+                stage.setScene(scene);
+                stage.getIcons().add(thisWindowStage.getIcons().get(0));
                 abonentWindow.setStage(stage);
                 stage.show();
             } catch (IOException e) {
@@ -148,6 +147,9 @@ public class InDocWindow extends AbstrWindow {
             Abonent abonent = abonentTable.getSelectionModel().getSelectedItem();
             if (abonent == null) return;
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(thisWindowStage.getIcons().get(0));
+            stage.getScene().getStylesheets().add(thisWindowStage.getScene().getStylesheets().get(0));
             alert.setHeaderText("ЗАПРОС");
             alert.setTitle("ПОДТВЕРЖДЕНИЕ УДАЛЕНИЯ");
             alert.setContentText("ВЫ ДЕЙСТВИТЕЛЬНО ХОТИТЕ УДАЛИТЬ ДАННУЮ ЗАПИСЬ? " +
@@ -164,11 +166,7 @@ public class InDocWindow extends AbstrWindow {
 
         addSysTrfBt.setOnAction(event -> {
             if (!isCreatedDoc()) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setHeaderText("ВНИМАНИЕ");
-                alert.setTitle("ОШИБКА ДАННЫХ");
-                alert.setContentText("СНАЧАЛА НУЖНО СОХРАНИТЬ ДОКУМЕНТ");
-                alert.showAndWait();
+                showAlert("ВНИМАНИЕ", "ОШИБКА ДАННЫХ", "СНАЧАЛА НУЖНО СОХРАНИТЬ ДОКУМЕНТ", Alert.AlertType.WARNING);
                 return;
             }
             Parent root;
@@ -180,7 +178,10 @@ public class InDocWindow extends AbstrWindow {
                 sysTrfWindow.setData(inDoc);
                 Stage stage = new Stage();
                 stage.setTitle("СИСТЕМЫ ПЕРЕДАЧИ ИНФОРРМАЦИИ");
-                stage.setScene(new Scene(root, 800, 600));
+                Scene scene = new Scene(root, 800, 700);
+                scene.getStylesheets().add(thisWindowStage.getScene().getStylesheets().get(0));
+                stage.setScene(scene);
+                stage.getIcons().add(thisWindowStage.getIcons().get(0));
                 sysTrfWindow.setStage(stage);
                 stage.show();
             } catch (IOException e) {
@@ -192,6 +193,9 @@ public class InDocWindow extends AbstrWindow {
             SystemTransfer transfer = sysTrfTable.getSelectionModel().getSelectedItem();
             if (transfer == null) return;
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(thisWindowStage.getIcons().get(0));
+            stage.getScene().getStylesheets().add(thisWindowStage.getScene().getStylesheets().get(0));
             alert.setHeaderText("ЗАПРОС");
             alert.setTitle("ПОДТВЕРЖДЕНИЕ УДАЛЕНИЯ");
             alert.setContentText("ВЫ ДЕЙСТВИТЕЛЬНО ХОТИТЕ УДАЛИТЬ ДАННУЮ ЗАПИСЬ? " +
@@ -208,11 +212,7 @@ public class InDocWindow extends AbstrWindow {
 
         addPersonBt.setOnAction(event -> {
             if (!isCreatedDoc()) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setHeaderText("ВНИМАНИЕ");
-                alert.setTitle("ОШИБКА ДАННЫХ");
-                alert.setContentText("СНАЧАЛА НУЖНО СОХРАНИТЬ ДОКУМЕНТ");
-                alert.showAndWait();
+                showAlert("ВНИМАНИЕ", "ОШИБКА ДАННЫХ", "СНАЧАЛА НУЖНО СОХРАНИТЬ ДОКУМЕНТ", Alert.AlertType.WARNING);
                 return;
             }
             Parent root;
@@ -224,8 +224,10 @@ public class InDocWindow extends AbstrWindow {
                 personWindow.setData(inDoc);
                 Stage stage = new Stage();
                 stage.setTitle("СОТРУДНИКИ");
-                stage.setScene(new Scene(root, 800, 600));
-//                stage.getScene().getStylesheets().add(thisWindowStage.getScene().getStylesheets().get(0));
+                Scene scene = new Scene(root, 800, 700);
+                scene.getStylesheets().add(thisWindowStage.getScene().getStylesheets().get(0));
+                stage.setScene(scene);
+                stage.getIcons().add(thisWindowStage.getIcons().get(0));
                 personWindow.setStage(stage);
                 stage.show();
             } catch (IOException e) {
@@ -237,6 +239,9 @@ public class InDocWindow extends AbstrWindow {
             Person person = personTable.getSelectionModel().getSelectedItem();
             if (person == null) return;
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(thisWindowStage.getIcons().get(0));
+            stage.getScene().getStylesheets().add(thisWindowStage.getScene().getStylesheets().get(0));
             alert.setHeaderText("ЗАПРОС");
             alert.setTitle("ПОДТВЕРЖДЕНИЕ УДАЛЕНИЯ");
             alert.setContentText("ВЫ ДЕЙСТВИТЕЛЬНО ХОТИТЕ УДАЛИТЬ ДАННУЮ ЗАПИСЬ? " +
@@ -257,11 +262,7 @@ public class InDocWindow extends AbstrWindow {
 
         addOutDocBt.setOnAction(event -> {
             if (!isCreatedDoc()) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setHeaderText("ВНИМАНИЕ");
-                alert.setTitle("ОШИБКА ДАННЫХ");
-                alert.setContentText("СНАЧАЛА НУЖНО СОХРАНИТЬ ДОКУМЕНТ");
-                alert.showAndWait();
+                showAlert("ВНИМАНИЕ", "ОШИБКА ДАННЫХ", "СНАЧАЛА НУЖНО СОХРАНИТЬ ДОКУМЕНТ", Alert.AlertType.WARNING);
                 return;
             }
             Parent root;
@@ -273,8 +274,10 @@ public class InDocWindow extends AbstrWindow {
                 findWindow.setData(inDoc);
                 Stage stage = new Stage();
                 stage.setTitle("ПОИСК ДОКУМЕНТОВ");
-                stage.setScene(new Scene(root, 800, 600));
-//                stage.getScene().getStylesheets().add(thisWindowStage.getScene().getStylesheets().get(0));
+                Scene scene = new Scene(root, 800, 700);
+                scene.getStylesheets().add(thisWindowStage.getScene().getStylesheets().get(0));
+                stage.setScene(scene);
+                stage.getIcons().add(thisWindowStage.getIcons().get(0));
                 findWindow.setStage(stage);
                 stage.show();
             } catch (IOException e) {
@@ -286,6 +289,9 @@ public class InDocWindow extends AbstrWindow {
             OutDoc outDoc = outDocTable.getSelectionModel().getSelectedItem();
             if (outDoc == null) return;
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(thisWindowStage.getIcons().get(0));
+            stage.getScene().getStylesheets().add(thisWindowStage.getScene().getStylesheets().get(0));
             alert.setHeaderText("ЗАПРОС");
             alert.setTitle("ПОДТВЕРЖДЕНИЕ УДАЛЕНИЯ");
             alert.setContentText("ВЫ ДЕЙСТВИТЕЛЬНО ХОТИТЕ УДАЛИТЬ ДАННУЮ ЗАПИСЬ? " +
@@ -316,8 +322,10 @@ public class InDocWindow extends AbstrWindow {
                             outDocWindow.setAbstrWindow(InDocWindow.this);
                             Stage stage = new Stage();
                             stage.setTitle("ИСХОДЯЩИЙ ДОКУМЕНТ: №" + doc.getNumDoc());
-                            stage.setScene(new Scene(root, 800, 600));
-//                            stage.getScene().getStylesheets().add(thisWindowStage.getScene().getStylesheets().get(0));
+                            Scene scene = new Scene(root, 800, 700);
+                            scene.getStylesheets().add(thisWindowStage.getScene().getStylesheets().get(0));
+                            stage.setScene(scene);
+                            stage.getIcons().add(thisWindowStage.getIcons().get(0));
                             outDocWindow.setStage(stage);
                             stage.show();
                         } catch (IOException e) {
@@ -366,10 +374,13 @@ public class InDocWindow extends AbstrWindow {
 
     private void deleteThisDoc() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(thisWindowStage.getIcons().get(0));
+        stage.getScene().getStylesheets().add(thisWindowStage.getScene().getStylesheets().get(0));
         alert.setHeaderText("ЗАПРОС НА УДАЛЕНИЕ");
         alert.setTitle("ПОДТВЕРЖДЕНИЕ УДАЛЕНИЯ");
         alert.setContentText("ВЫ ДЕЙСТВИТЕЛЬНО ХОТИТЕ УДАЛИТЬ ДАННЫЙ ДОКУМЕНТ? " +
-                "ПОСЛЕ ПОДТВЕРЖДЕНИЯ УДАЛЕНИЕ ОБРАТИТЬ НЕ ВОЗМОЖНО!");
+                "ПОСЛЕ ПОДТВЕРЖДЕНИЯ, УДАЛЕНИЕ ОБРАТИТЬ НЕ ВОЗМОЖНО!");
         alert.showAndWait();
         if (alert.getResult().getButtonData().isCancelButton()) return;
         try {
@@ -419,11 +430,7 @@ public class InDocWindow extends AbstrWindow {
                 try {
                     DBControl.InDoc.update(inDoc);
                     abstrWindow.updateData();
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setHeaderText("ИНФОРМАЦИЯ");
-                    alert.setTitle("ОБНОВЛЕНИЕ ДАННЫХ");
-                    alert.setContentText("ДАННЫЕ ОБНОВЛЕНЫ");
-                    alert.showAndWait();
+                    showAlert("ИНФОРМАЦИЯ", "ОБНОВЛЕНИЕ ДАННЫХ", "ДАННЫЕ ОБНОВЛЕНЫ", Alert.AlertType.INFORMATION);
                     thisWindowStage.setTitle("ВХОДЯЩИЙ ДОКУМЕНТ: №" + inDoc.getCurrNum());
                     return;
                 } catch (SQLException e) {
@@ -433,19 +440,12 @@ public class InDocWindow extends AbstrWindow {
             try {
                 int r = DBControl.InDoc.add(inDoc);
                 if (r == DBControl.DATA_IS_NOT_CREATED) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setHeaderText("ВНИМАНИЕ");
-                    alert.setTitle("ОШИБКА СОХРАНЕНИЯ");
-                    alert.setContentText("ВО ВРЕМЯ СОХРАНЕНИЯ ПРОИЗОШЛА ОШИБКА: " + DBControl.DATA_IS_NOT_CREATED);
-                    alert.showAndWait();
+                    showAlert("ВНИМАНИЕ", "ОШИБКА СОХРАНЕНИЯ", "ВО ВРЕМЯ СОХРАНЕНИЯ ПРОИЗОШЛА ОШИБКА: " + DBControl.DATA_IS_NOT_CREATED,
+                            Alert.AlertType.ERROR);
                 }
                 inDoc = DBControl.InDoc.getFromID(r);
                 abstrWindow.updateData();
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setHeaderText("ИНФОРМАЦИЯ");
-                alert.setTitle("СОХРАНЕНИЕ ДАННЫХ");
-                alert.setContentText("ДАННЫЕ СОХРАНЕНЫ");
-                alert.showAndWait();
+                showAlert("ИНФОРМАЦИЯ", "СОХРАНЕНИЕ ДАННЫХ", "ДАННЫЕ СОХРАНЕНЫ", Alert.AlertType.INFORMATION);
                 thisWindowStage.setTitle("ВХОДЯЩИЙ ДОКУМЕНТ: №" + inDoc.getCurrNum());
                 saveBt.setText("Обновить");
             } catch (SQLException e) {
@@ -453,12 +453,20 @@ public class InDocWindow extends AbstrWindow {
             }
         }
         else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText("ВНИМАНИЕ");
-            alert.setTitle("ОШИБКА ДАННЫХ");
-            alert.setContentText("ЗАПОЛНИТЕ ДАТУ, ВХОДЯЩИЙ НОМЕР И НОМЕР РЕГИСТРАЦИИ");
-            alert.showAndWait();
+            showAlert("ВНИМАНИЕ", "ОШИБКА ДАННЫХ", "ЗАПОЛНИТЕ ДАТУ, ВХОДЯЩИЙ НОМЕР И НОМЕР РЕГИСТРАЦИИ",
+                    Alert.AlertType.WARNING);
         }
+    }
+
+    private void showAlert(String headText, String titleText, String contentText, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(thisWindowStage.getIcons().get(0));
+        stage.getScene().getStylesheets().add(thisWindowStage.getScene().getStylesheets().get(0));
+        alert.setHeaderText(headText);
+        alert.setTitle(titleText);
+        alert.setContentText(contentText);
+        alert.showAndWait();
     }
 
     @FXML

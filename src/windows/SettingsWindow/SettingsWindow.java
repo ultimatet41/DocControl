@@ -1,8 +1,6 @@
 package windows.SettingsWindow;
 
 import data.AbstrDoc;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -51,6 +49,9 @@ public class SettingsWindow extends AbstrWindow {
             saveSettings();
             loadSettings();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(thisWindowStage.getIcons().get(0));
+            stage.getScene().getStylesheets().add(thisWindowStage.getScene().getStylesheets().get(0));
             alert.setHeaderText("ИНФОРМАЦИЯ");
             alert.setTitle("ВНИМАНИЕ");
             alert.setContentText("НАСТРОЙКИ БУДУТ ПРИМЕНЕНЫ ПОСЛЕ ПЕРЕЗАПУСКА ПРОГРАММЫ");

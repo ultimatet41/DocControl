@@ -165,8 +165,8 @@ public class DBControl {
         }
 
         public static ArrayList<data.InDoc> getFromDate(String startDate, String endDate) throws SQLException {
-            String sql = "SELECT * FROM InDoc WHERE dateDc >= '" + startDate +"' AND dateDc <= '" + endDate + "" +
-                    "ORDER BY currNum';";
+            String sql = "SELECT * FROM InDoc WHERE dateDc BETWEEN '" + startDate + "' AND '" + endDate + "' " +
+                    "ORDER BY currNum;";
             ResultSet set = connect.createStatement().executeQuery(sql);
             ArrayList<data.InDoc> inDocs = new ArrayList<>();
             while (set.next()) {
@@ -316,7 +316,7 @@ public class DBControl {
         }
 
         public static ArrayList<data.OutDoc> getFromDate(String startDate, String endDate) throws SQLException {
-            String sql = "SELECT * FROM OutDoc WHERE dateDc >= '" + startDate +"' AND dateDc <= '" + endDate +" " +
+            String sql = "SELECT * FROM OutDoc WHERE dateDc BETWEEN '" + startDate + "' AND '" + endDate + " " +
                     "ORDER BY numDoc';";
             ResultSet set= connect.createStatement().executeQuery(sql);
             ArrayList<data.OutDoc> outDocs = new ArrayList<>();
