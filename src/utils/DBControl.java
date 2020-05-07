@@ -214,14 +214,15 @@ public class DBControl {
 
         public static ArrayList<data.InDoc> findDocs(HashMap<String, String> param) throws SQLException {
             String sql;
-            int s = param.size();
             if (param.containsKey(ID_ABONENT)) {
                 sql = "SELECT * FROM InDoc i LEFT JOIN AbonentLink al ON al.idDoc = i.idInDoc " +
                         " WHERE al.idAbonent = " + param.get(ID_ABONENT) + " AND al.typeDoc = 'i'";
-                if (s > 1) sql += " AND ";
+                if (param.size() > 1) sql += " AND ";
                 else sql += ";";
+                param.remove(ID_ABONENT);
             }
             else sql = "SELECT * FROM InDoc i WHERE ";
+            int s = param.size();
             for (HashMap.Entry<String, String> entry : param.entrySet()) {
                 switch (entry.getKey()) {
                     case START_DATE: sql = sql + "i.dateDc >= '" + entry.getValue() + "'";
@@ -247,9 +248,11 @@ public class DBControl {
 
                     case OTHER_DATA_DOC:
                         sql += "i.otherData LIKE '%" + entry.getValue() + "%'";
+                        if (s > 1) sql += " AND ";
+                        break;
                 }
                 --s;
-                System.out.println(sql);
+                System.out.println(s + " " + sql);
             }
             sql += ";";
             ResultSet set = connect.createStatement().executeQuery(sql);
@@ -333,16 +336,16 @@ public class DBControl {
 
         public static ArrayList<data.OutDoc> findDocs(HashMap<String, String> param) throws SQLException {
             String sql;
-            int s = param.size();
-            System.out.println("size: " + s);
             if (param.containsKey(ID_ABONENT)) {
                 sql = "SELECT * FROM OutDoc o LEFT JOIN AbonentLink al ON al.idDoc = o.idOutDoc " +
                         " WHERE al.idAbonent = " + param.get(ID_ABONENT) + " AND al.typeDoc = 'o'";
-                if (s > 1) sql += " AND ";
+                if (param.size() > 1) sql += " AND ";
                 else sql += ";";
+                param.remove(ID_ABONENT);
             }
             else sql = "SELECT * FROM OutDoc o WHERE ";
 
+            int s = param.size();
             for (HashMap.Entry<String, String> entry : param.entrySet()) {
                 switch (entry.getKey()) {
                     case START_DATE:
@@ -371,7 +374,7 @@ public class DBControl {
                         break;
                 }
                 --s;
-                System.out.println(sql);
+                System.out.println(s + " " + sql);
             }
             sql += ";";
             ResultSet set= connect.createStatement().executeQuery(sql);

@@ -298,7 +298,7 @@ public class MainWindow extends AbstrWindow {
         });
 
         aboutItemMenu.setOnAction(event -> {
-            showAlert("ИНФОРМАЦИЯ", "О ПРОГРАММЕ. ВЕРСИЯ 1.6b",
+            showAlert("ИНФОРМАЦИЯ", "О ПРОГРАММЕ. ВЕРСИЯ 1.6",
                     "РАЗРАБОТАНО СПЕЦИАЛЬНО ДЛЯ АДМИНИСТРАЦИИ МР \"СПАС-ДЕМЕНСКИЙ РАЙОН\". КОНОВАЛОВ К.В.",
                     Alert.AlertType.INFORMATION);
         });
