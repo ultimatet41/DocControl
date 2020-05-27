@@ -151,7 +151,9 @@ public class DBControl {
         }
 
         public static int update(data.InDoc inDoc) throws SQLException {
-            String sql = "UPDATE InDoc SET inNum = ?, currNum = ?, dateDc = ?, dateIn = ?, descInDoc = ?, otherData= ? WHERE idInDoc = " + inDoc.getIdInDoc() + ";";
+            String sql = "UPDATE InDoc SET inNum = ?, currNum = ?," +
+                    "dateDc = ?, dateIn = ?, descInDoc = ?, otherData= ?" +
+                    "WHERE idInDoc = " + inDoc.getIdInDoc() + ";";
             System.out.println(sql);
             PreparedStatement statement = connect.prepareStatement(sql);
             statement.setString(1, inDoc.getInNum());
@@ -162,6 +164,14 @@ public class DBControl {
             statement.setString(6, inDoc.getOtherData());
             statement.execute();
             return inDoc.getIdInDoc();
+        }
+
+        public static boolean isExist(data.InDoc inDoc) throws SQLException {
+            String sql = "SELECT * FROM InDoc WHERE inNum = '" + inDoc.getInNum()
+                    + "' AND dateDc = '" + inDoc.getDateDc()
+                    + "' AND currNum = '" + inDoc.getCurrNum() + "';";
+            ResultSet set = connect.createStatement().executeQuery(sql);
+            return set.next();
         }
 
         public static ArrayList<data.InDoc> getFromDate(String startDate, String endDate) throws SQLException {
@@ -213,49 +223,52 @@ public class DBControl {
         }
 
         public static ArrayList<data.InDoc> findDocs(HashMap<String, String> param) throws SQLException {
-            String sql;
+            StringBuilder sql;
             if (param.containsKey(ID_ABONENT)) {
-                sql = "SELECT * FROM InDoc i LEFT JOIN AbonentLink al ON al.idDoc = i.idInDoc " +
-                        " WHERE al.idAbonent = " + param.get(ID_ABONENT) + " AND al.typeDoc = 'i'";
-                if (param.size() > 1) sql += " AND ";
-                else sql += ";";
+                sql = new StringBuilder("SELECT * FROM InDoc i LEFT JOIN AbonentLink al ON al.idDoc = i.idInDoc " +
+                        " WHERE al.idAbonent = " + param.get(ID_ABONENT) + " AND al.typeDoc = 'i'");
+                if (param.size() > 1) sql.append(" AND ");
+                else sql.append(";");
                 param.remove(ID_ABONENT);
-            }
-            else sql = "SELECT * FROM InDoc i WHERE ";
+            } else sql = new StringBuilder("SELECT * FROM InDoc i WHERE ");
             int s = param.size();
             for (HashMap.Entry<String, String> entry : param.entrySet()) {
                 switch (entry.getKey()) {
-                    case START_DATE: sql = sql + "i.dateDc >= '" + entry.getValue() + "'";
-                        if (s > 1) sql += " AND ";
+                    case START_DATE:
+                        sql.append("i.dateDc >= '").append(entry.getValue()).append("'");
+                        if (s > 1) sql.append(" AND ");
                         break;
 
-                    case END_DATE: sql += "i.dateDc <= '" + entry.getValue() + "'";
-                        if (s > 1) sql += " AND ";
+                    case END_DATE:
+                        sql.append("i.dateDc <= '").append(entry.getValue()).append("'");
+                        if (s > 1) sql.append(" AND ");
                         break;
 
-                    case NUM_DOC: sql += "i.currNum LIKE '%" + entry.getValue() +"%'";
-                        if (s > 1) sql += " AND ";
+                    case NUM_DOC:
+                        sql.append("i.currNum LIKE '%").append(entry.getValue()).append("%'");
+                        if (s > 1) sql.append(" AND ");
                         break;
 
-                    case NUM_INDOC: sql += "i.inNum LIKE '%" + entry.getValue() + "%'";
-                        if (s > 1) sql += " AND ";
+                    case NUM_INDOC:
+                        sql.append("i.inNum LIKE '%").append(entry.getValue()).append("%'");
+                        if (s > 1) sql.append(" AND ");
                         break;
 
                     case DESC_DOC:
-                        sql += "i.descInDoc LIKE '%" + entry.getValue() +"%'";
-                        if (s > 1) sql += " AND ";
+                        sql.append("i.descInDoc LIKE '%").append(entry.getValue()).append("%'");
+                        if (s > 1) sql.append(" AND ");
                         break;
 
                     case OTHER_DATA_DOC:
-                        sql += "i.otherData LIKE '%" + entry.getValue() + "%'";
-                        if (s > 1) sql += " AND ";
+                        sql.append("i.otherData LIKE '%").append(entry.getValue()).append("%'");
+                        if (s > 1) sql.append(" AND ");
                         break;
                 }
                 --s;
                 System.out.println(s + " " + sql);
             }
-            sql += ";";
-            ResultSet set = connect.createStatement().executeQuery(sql);
+            sql.append(";");
+            ResultSet set = connect.createStatement().executeQuery(sql.toString());
             ArrayList<data.InDoc> inDocs = new ArrayList<>();
             while (set.next()) {
                 Integer idDocIn = set.getInt("idInDoc");
@@ -306,6 +319,13 @@ public class DBControl {
             return outDoc.getIdOutDoc();
         }
 
+        public static boolean isExist(data.OutDoc outDoc) throws SQLException {
+            String sql = "SELECT * FROM outDoc WHERE numDoc = '" + outDoc.getNumDoc()
+                    + "' AND dateDc = '" + outDoc.getDateDc() + "';";
+            ResultSet set = connect.createStatement().executeQuery(sql);
+            return set.next();
+        }
+
         public static data.OutDoc getFromID(Integer idOutDoc) throws SQLException {
             String sql = "SELECT * FROM OutDoc WHERE idOutDoc = " + idOutDoc + ";";
             ResultSet set = connect.createStatement().executeQuery(sql);
@@ -335,49 +355,48 @@ public class DBControl {
         }
 
         public static ArrayList<data.OutDoc> findDocs(HashMap<String, String> param) throws SQLException {
-            String sql;
+            StringBuilder sql;
             if (param.containsKey(ID_ABONENT)) {
-                sql = "SELECT * FROM OutDoc o LEFT JOIN AbonentLink al ON al.idDoc = o.idOutDoc " +
-                        " WHERE al.idAbonent = " + param.get(ID_ABONENT) + " AND al.typeDoc = 'o'";
-                if (param.size() > 1) sql += " AND ";
-                else sql += ";";
+                sql = new StringBuilder("SELECT * FROM OutDoc o LEFT JOIN AbonentLink al ON al.idDoc = o.idOutDoc " +
+                        " WHERE al.idAbonent = " + param.get(ID_ABONENT) + " AND al.typeDoc = 'o'");
+                if (param.size() > 1) sql.append(" AND ");
+                else sql.append(";");
                 param.remove(ID_ABONENT);
-            }
-            else sql = "SELECT * FROM OutDoc o WHERE ";
+            } else sql = new StringBuilder("SELECT * FROM OutDoc o WHERE ");
 
             int s = param.size();
             for (HashMap.Entry<String, String> entry : param.entrySet()) {
                 switch (entry.getKey()) {
                     case START_DATE:
-                        sql = sql + "o.dateDc >= '" + entry.getValue() + "'";
-                        if (s > 1) sql += " AND ";
+                        sql.append("o.dateDc >= '").append(entry.getValue()).append("'");
+                        if (s > 1) sql.append(" AND ");
                         break;
 
                     case END_DATE:
-                        sql += "o.dateDc <= '" + entry.getValue() + "'";
-                        if (s > 1) sql += " AND ";
+                        sql.append("o.dateDc <= '").append(entry.getValue()).append("'");
+                        if (s > 1) sql.append(" AND ");
                         break;
 
                     case NUM_DOC:
-                        sql += "o.numDoc LIKE '%" + entry.getValue() + "%'";
-                        if (s > 1) sql += " AND ";
+                        sql.append("o.numDoc LIKE '%").append(entry.getValue()).append("%'");
+                        if (s > 1) sql.append(" AND ");
                         break;
 
                     case DESC_DOC:
-                        sql += "o.descOutDoc LIKE '%" + entry.getValue() + "%'";
-                        if (s > 1) sql += " AND ";
+                        sql.append("o.descOutDoc LIKE '%").append(entry.getValue()).append("%'");
+                        if (s > 1) sql.append(" AND ");
                         break;
 
                     case OTHER_DATA_DOC:
-                        sql += "o.otherData LIKE '%" + entry.getValue() + "%'";
-                        if (s > 1) sql += " AND ";
+                        sql.append("o.otherData LIKE '%").append(entry.getValue()).append("%'");
+                        if (s > 1) sql.append(" AND ");
                         break;
                 }
                 --s;
                 System.out.println(s + " " + sql);
             }
-            sql += ";";
-            ResultSet set= connect.createStatement().executeQuery(sql);
+            sql.append(";");
+            ResultSet set = connect.createStatement().executeQuery(sql.toString());
             ArrayList<data.OutDoc> outDocs = new ArrayList<>();
             while (set.next()) {
                 Integer id = set.getInt("idOutDoc");

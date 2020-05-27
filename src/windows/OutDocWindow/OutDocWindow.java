@@ -399,12 +399,22 @@ public class OutDocWindow extends AbstrWindow {
                     abstrWindow.updateData();
                     showAlert("ИНФОРМАЦИЯ", "ОБНОВЛЕНИЕ ДАННЫХ", "ДАННЫЕ ОБНОВЛЕНЫ", Alert.AlertType.INFORMATION);
                     thisWindowStage.setTitle("ИСХОДЯЩИЙ ДОКУМЕНТ: №" + outDoc.getNumDoc());
-                    return;
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-            }
-            try {
+            } else try {
+                if (DBControl.OutDoc.isExist(outDoc)) {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(thisWindowStage.getIcons().get(0));
+                    stage.getScene().getStylesheets().add(thisWindowStage.getScene().getStylesheets().get(0));
+                    alert.setHeaderText("ПРОВЕРКА НА ДУБЛИКАТ");
+                    alert.setTitle("ПОДТВЕРЖДЕНИЕ СОХРАНЕНИЯ ДУБЛИКАТА");
+                    alert.setContentText("ДОКУМЕНТ С ТАКИМ НОМЕРОМ И ДАТОЙ УЖЕ ЕСТЬ." +
+                            "ВЫ ДЕСТВИТЕЛЬНО ХОТИТЕ СОХРАНИТЬ ДУБЛИРУЮЩИЙ ДОКУМЕНТ?");
+                    alert.showAndWait();
+                    if (alert.getResult().getButtonData().isCancelButton()) return;
+                }
                 int r = DBControl.OutDoc.add(outDoc);
                 if (r == DBControl.DATA_IS_NOT_CREATED) {
                     showAlert("ВНИМАНИЕ", "ОШИБКА СОХРАНЕНИЯ", "ВО ВРЕМЯ СОХРАНЕНИЯ ПРОИЗОШЛА ОШИБКА: " + DBControl.DATA_IS_NOT_CREATED,
@@ -417,6 +427,8 @@ public class OutDocWindow extends AbstrWindow {
                 saveBt.setText("Обновить");
             } catch (SQLException e) {
                 e.printStackTrace();
+                showAlert("ВНИМАНИЕ", "ОШИБКА СОХРАНЕНИЯ", "ВО ВРЕМЯ СОХРАНЕНИЯ ПРОИЗОШЛА ОШИБКА",
+                        Alert.AlertType.ERROR);
             }
         }
         else {

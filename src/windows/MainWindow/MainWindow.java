@@ -93,13 +93,6 @@ public class MainWindow extends AbstrWindow {
         repoIV.setPreserveRatio(true);
         createRepoBt.setGraphic(repoIV);
 
-//        Image calendImg = new Image(this.getClass().getResourceAsStream("calendar.png"));
-//        ImageView calendIV = new ImageView(calendImg);
-//        calendIV.setFitWidth(30);
-//        calendIV.setFitHeight(30);
-//        calendIV.setPreserveRatio(true);
-//        setDateBt.setGraphic(calendIV);
-
         Image indImg = new Image(this.getClass().getResourceAsStream("in.png"));
         ImageView inIV = new ImageView(indImg);
         inIV.setFitWidth(30);
@@ -299,7 +292,7 @@ public class MainWindow extends AbstrWindow {
         });
 
         aboutItemMenu.setOnAction(event -> {
-            showAlert("ИНФОРМАЦИЯ", "О ПРОГРАММЕ. ВЕРСИЯ 1.6",
+            showAlert("ИНФОРМАЦИЯ", "О ПРОГРАММЕ. ВЕРСИЯ 1.7",
                     "РАЗРАБОТАНО СПЕЦИАЛЬНО ДЛЯ АДМИНИСТРАЦИИ МР \"СПАС-ДЕМЕНСКИЙ РАЙОН\". КОНОВАЛОВ К.В.",
                     Alert.AlertType.INFORMATION);
         });
