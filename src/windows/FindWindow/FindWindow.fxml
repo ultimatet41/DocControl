@@ -20,6 +20,7 @@
                   <DatePicker fx:id="dateEnd" prefHeight="31.0" prefWidth="155.0" HBox.hgrow="ALWAYS" />
                   <Separator orientation="VERTICAL" prefHeight="52.0" prefWidth="30.0" />
                   <TextField fx:id="regNumTxt" promptText="Номер регистрации" HBox.hgrow="ALWAYS" />
+                   <TextField fx:id="inNumTxt" promptText="Входящий номер" HBox.hgrow="ALWAYS"/>
                </children>
             </HBox>
             <TableView fx:id="outDocTable" prefHeight="272.0" prefWidth="774.0" VBox.vgrow="ALWAYS">

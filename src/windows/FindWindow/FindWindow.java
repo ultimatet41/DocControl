@@ -30,12 +30,16 @@ public class FindWindow extends AbstrWindow {
             if (abstrDoc.getType().equals(AbstrDoc.INDOC)) {
                 vboxPn.getChildren().remove(inDocTable);
                 outDocData = FXCollections.observableArrayList();
+                inNumTxt.setDisable(true);
                 initOutDocTable();
-                System.out.println("outdoc");
+                InDoc inDoc = (InDoc) abstrDoc;
+                dateStart.setValue(LocalDate.parse(inDoc.getDateDc()));
             } else {
                 vboxPn.getChildren().remove(outDocTable);
                 inDocData = FXCollections.observableArrayList();
                 initInDocTable();
+                OutDoc outDoc = (OutDoc) abstrDoc;
+                dateStart.setValue(LocalDate.parse(outDoc.getDateDc()));
             }
             loadData();
         }
@@ -44,7 +48,6 @@ public class FindWindow extends AbstrWindow {
     private void initDatePattern() {
         String pattern = "yyyy-MM-dd";
         dateStart.setPromptText(pattern.toLowerCase());
-        dateStart.setValue(LocalDate.now());
         dateEnd.setPromptText(pattern.toLowerCase());
         dateEnd.setValue(LocalDate.now());
     }
@@ -96,7 +99,6 @@ public class FindWindow extends AbstrWindow {
                 System.out.println(outDocData.size());
                 outDocTable.setItems(outDocData);
             } else {
-
                 inDocData.clear();
                 if (!dateStart.getValue().toString().isEmpty() && !dateEnd.getValue().toString().isEmpty()) {
                     if (dateEnd.getValue().compareTo(dateStart.getValue()) < 0) {
@@ -114,6 +116,7 @@ public class FindWindow extends AbstrWindow {
                     param.put(DBControl.START_DATE, dateStart.getValue().toString());
                     param.put(DBControl.END_DATE, dateEnd.getValue().toString());
                     if (!regNumTxt.getText().isEmpty()) param.put(DBControl.NUM_DOC, regNumTxt.getText());
+                    if (!inNumTxt.getText().isEmpty()) param.put(DBControl.NUM_INDOC, inNumTxt.getText());
                     inDocData.addAll(DBControl.InDoc.findDocs(param));
                     inDocTable.setItems(inDocData);
                 }
@@ -124,8 +127,8 @@ public class FindWindow extends AbstrWindow {
     }
 
     private void connectActions() {
-//        findBt.setOnAction(event -> loadData());
         regNumTxt.textProperty().addListener((observable, oldValue, newValue) -> loadData());
+        inNumTxt.textProperty().addListener((observable, oldValue, newValue) -> loadData());
 
         outDocTable.setRowFactory(param -> {
             TableRow<OutDoc> row = new TableRow<>();
@@ -253,6 +256,8 @@ public class FindWindow extends AbstrWindow {
     private VBox vboxPn;
     @FXML
     private TextField regNumTxt;
+    @FXML
+    private TextField inNumTxt;
 
 
     private AbstrWindow abstrWindow;
