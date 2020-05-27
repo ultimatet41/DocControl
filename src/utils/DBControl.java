@@ -167,9 +167,8 @@ public class DBControl {
         }
 
         public static boolean isExist(data.InDoc inDoc) throws SQLException {
-            String sql = "SELECT * FROM InDoc WHERE inNum = '" + inDoc.getInNum()
-                    + "' AND dateDc = '" + inDoc.getDateDc()
-                    + "' AND currNum = '" + inDoc.getCurrNum() + "';";
+            String sql = "SELECT * FROM InDoc WHERE currNum = '" + inDoc.getCurrNum()
+                    + "' AND dateDc = '" + inDoc.getDateDc() + "';";
             ResultSet set = connect.createStatement().executeQuery(sql);
             return set.next();
         }

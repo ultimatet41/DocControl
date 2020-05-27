@@ -37,6 +37,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class MainWindow extends AbstrWindow {
 
@@ -544,7 +545,7 @@ public class MainWindow extends AbstrWindow {
                 Stage stage = new Stage();
                 stage.setTitle("НАСТРОЙКИ");
                 Scene scene = new Scene(root, 800, 200);
-                scene.getStylesheets().add(getClass().getClassLoader().getResource("resources/bootstrap2.css").toExternalForm());
+                scene.getStylesheets().add(Objects.requireNonNull(getClass().getClassLoader().getResource("resources/bootstrap2.css")).toExternalForm());
                 stage.setScene(scene);
                 settingsWindow.setStage(stage);
                 if (settingsWindow.getNameDB().isEmpty()) {
