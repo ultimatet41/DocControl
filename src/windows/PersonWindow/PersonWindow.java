@@ -50,11 +50,12 @@ public class PersonWindow extends AbstrWindow{
                 descTxt.getText());
                 try {
                     DBControl.Person.add(person);
+                    loadData();
+                    fLNameTxt.setText(lNameTxt.getText());
                     lNameTxt.clear();
                     fNameTxt.clear();
                     patronTxt.clear();
                     descTxt.clear();
-                    loadData();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }

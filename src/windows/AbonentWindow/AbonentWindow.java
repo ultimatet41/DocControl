@@ -46,9 +46,10 @@ public class AbonentWindow extends AbstrWindow {
                 Abonent abonent = new Abonent(null, nameTxt.getText(), descTxt.getText());
                 try {
                     DBControl.Abonent.add(abonent);
+                    loadData();
+                    findTxt.setText(nameTxt.getText());
                     nameTxt.clear();
                     descTxt.clear();
-                    loadData();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -139,18 +140,6 @@ public class AbonentWindow extends AbstrWindow {
                 alert.showAndWait();
             }
         });
-
-//        findBt.setOnAction(event -> {
-//            if (!findTxt.getText().isEmpty()) {
-//                abonentData.clear();
-//                try {
-//                    abonentData.addAll(DBControl.Abonent.findForName(findTxt.getText()));
-//                    abonentTable.setItems(abonentData);
-//                } catch (SQLException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
 
         findTxt.textProperty().addListener((observable, oldValue, newValue) -> {
             try {

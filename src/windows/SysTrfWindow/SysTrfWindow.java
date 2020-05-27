@@ -47,9 +47,10 @@ public class SysTrfWindow extends AbstrWindow{
                 SystemTransfer transfer = new SystemTransfer(null, nameTxt.getText(), descTxt.getText());
                 try {
                     DBControl.SysTrf.add(transfer);
+                    loadData();
+                    findTxt.setText(nameTxt.getText());
                     nameTxt.clear();
                     descTxt.clear();
-                    loadData();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -140,6 +141,21 @@ public class SysTrfWindow extends AbstrWindow{
                 alert.showAndWait();
             }
         });
+
+        findTxt.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                sysTrfData.clear();
+                sysTrfData.addAll(DBControl.SysTrf.findForName(findTxt.getText()));
+                sysTrfTable.setItems(sysTrfData);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+
+        clearBt.setOnAction(event -> {
+            findTxt.clear();
+            loadData();
+        });
     }
 
     public void setAbstrWindow(AbstrWindow abstrWindow) {
@@ -188,6 +204,12 @@ public class SysTrfWindow extends AbstrWindow{
 
     @FXML
     private CheckBox editModeCh;
+
+    @FXML
+    private TextField findTxt;
+
+    @FXML
+    private Button clearBt;
 
     private AbstrWindow abstrWindow;
 

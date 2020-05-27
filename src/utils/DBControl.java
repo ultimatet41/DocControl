@@ -583,6 +583,19 @@ public class DBControl {
             }
             return transfers;
         }
+
+        public static ArrayList<SystemTransfer> findForName(String inName) throws SQLException {
+            String sql = "SELECT * FROM SystemTransfer WHERE name LIKE '%" + inName + "%';";
+            ResultSet set = connect.createStatement().executeQuery(sql);
+            ArrayList<SystemTransfer> transfers = new ArrayList<>();
+            while (set.next()) {
+                Integer id = set.getInt("idSysTransfer");
+                String name = set.getString("name");
+                String descSysTrf = set.getString("descSysTrf");
+                transfers.add(new SystemTransfer(id, name, descSysTrf));
+            }
+            return transfers;
+        }
     }
 
     public static class DocLink {
