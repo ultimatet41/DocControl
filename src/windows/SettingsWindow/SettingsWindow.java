@@ -134,6 +134,10 @@ public class SettingsWindow extends AbstrWindow {
 
     }
 
+    public void setHideExitBt(boolean isHide) {
+        exitBt.setVisible(!isHide);
+    }
+
     @FXML
     private TextField addresDB;
     @FXML
@@ -161,6 +165,4 @@ public class SettingsWindow extends AbstrWindow {
     private static final String LOGIN_DB = "LOGIN_DB";
     private static final String PASSWORD_DB = "PASSWORD_DB";
     private static final String DUMPEXE = "DUMPEXE";
-
-
 }

@@ -294,6 +294,7 @@ public class MainWindow extends AbstrWindow {
         settingsBDItemMenu.setOnAction(event -> {
             settingsWindow.loadSettings();
             settingsWindow.getStage().getIcons().add(thisStage.getIcons().get(0));
+            settingsWindow.setHideExitBt(true);
             settingsWindow.getStage().show();
         });
 
